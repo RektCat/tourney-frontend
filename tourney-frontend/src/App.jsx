@@ -1,5 +1,11 @@
+import ConnectionTester from "./test/ConnectionTester";
+
 function App() {
-  return <div>App</div>;
+  return (
+    <>
+      <ConnectionTester />
+    </>
+  );
 }
 
 export default App;
