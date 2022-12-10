@@ -1,11 +1,8 @@
-import ConnectionTester from "./test/ConnectionTester";
+import Routing from "./Routing";
 
+//And possibly additional providers
 function App() {
-  return (
-    <>
-      <ConnectionTester />
-    </>
-  );
+  return <Routing />;
 }
 
 export default App;

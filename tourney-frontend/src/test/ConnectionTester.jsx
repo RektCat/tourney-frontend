@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import APIURL from "../static/constants/apiurl";
 
 function ConnectionTester() {
-  const socket = io(APIURL, { reconnectionAttempts: 20 });
+  const socket = io(APIURL, { reconnectionAttempts: 5, reconnectionDelay: 2500 });
 
   const click = () => {
     console.log("clicked");

@@ -17,19 +17,7 @@ module.exports = {
         dark: "#212121",
         gray: colors.zinc,
       },
-      fontFamily: {
-        display: ["Montserrat", "sans-serif"],
-        body: ["Open Sans", "sans-serif"],
-      },
-      screens: {
-        "dark-mode": { raw: "(prefers-color-scheme: dark)" },
-      },
     },
-  },
-  variants: {
-    backgroundColor: ["dark", "dark-hover", "dark-group-hover", "dark-even", "dark-odd", "dark-mode"],
-    borderColor: ["dark", "dark-focus", "dark-focus-within"],
-    textColor: ["dark", "dark-hover", "dark-active"],
   },
   plugins: [],
 };
