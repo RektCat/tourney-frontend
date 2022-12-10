@@ -1,10 +1,7 @@
-import ConnectionTester from "../test/ConnectionTester";
-
 function Home() {
   return (
-    <div>
+    <div className="flex flex-col pt-[10vh] items-center">
       <h2>Home</h2>
-      <ConnectionTester />
     </div>
   );
 }
