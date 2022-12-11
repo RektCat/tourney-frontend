@@ -19,39 +19,72 @@ function Home() {
 const LinkStyled = ({ to = "#", children }) => {
   const id = useRef(nextId());
   const ref = useRef();
-  // const animScale = useRef();
+  const animScale = useRef(0.7);
+  const animations = useRef({});
 
-  const handleHover = async () => {
-    anime({
-      targets: `#${id.current}`,
-      scale: [0.7, 5],
-      duration: 600,
-      easing: "easeInQuad",
-      // update: function (anim) {
-      //   animScale.current = 0.7 + (anim.progress / 100) * 4.3;
-      // },
-    });
+  //TODO: animation smoothen transition (animation skips one animScale update)
+  // With linear its better
+  const handleAnimation = (e) => {
+    if (e.type === "mouseenter") {
+      animations.current.hover = anime({
+        targets: `#${id.current}`,
+        scale: [animScale.current, 5],
+        duration: 600,
+        easing: "linear",
+        begin: function () {
+          animations.current.leave?.pause();
+        },
+        update: function (anim) {
+          animScale.current = 0.7 + (anim.progress / 100) * 4.3;
+        },
+      });
+    } else {
+      animations.current.leave = anime({
+        targets: `#${id.current}`,
+        scale: [animScale.current, 0.7],
+        duration: 600,
+        easing: "linear",
+        begin: function () {
+          animations.current.hover?.pause();
+        },
+        update: function (anim) {
+          animScale.current = 5 - (anim.progress / 100) * 4.3;
+        },
+      });
+    }
   };
 
-  const handleLeave = async () => {
-    anime({
-      targets: `#${id.current}`,
-      scale: [5, 0.7],
-      duration: 600,
-      easing: "easeInQuad",
-      // update: function (anim) {
-      //   animScale.current = 5 - (anim.progress / 100) * 4.3;
-      // },
-    });
-  };
+  // const handleHover = async () => {
+  //   anime({
+  //     targets: `#${id.current}`,
+  //     scale: [0.7, 5],
+  //     duration: 600,
+  //     easing: "easeInQuad",
+  //     // update: function (anim) {
+  //     //   animScale.current = 0.7 + (anim.progress / 100) * 4.3;
+  //     // },
+  //   });
+  // };
+
+  // const handleLeave = async () => {
+  //   anime({
+  //     targets: `#${id.current}`,
+  //     scale: [5, 0.7],
+  //     duration: 600,
+  //     easing: "easeInQuad",
+  //     // update: function (anim) {
+  //     //   animScale.current = 5 - (anim.progress / 100) * 4.3;
+  //     // },
+  //   });
+  // };
 
   useEffect(() => {
-    ref.current?.addEventListener("mouseenter", handleHover);
-    ref.current?.addEventListener("mouseleave", handleLeave);
+    ref.current?.addEventListener("mouseenter", handleAnimation);
+    ref.current?.addEventListener("mouseleave", handleAnimation);
 
     return () => {
-      ref.current?.removeEventListener("mouseenter", handleHover);
-      ref.current?.removeEventListener("mouseleave", handleLeave);
+      ref.current?.removeEventListener("mouseenter", handleAnimation);
+      ref.current?.removeEventListener("mouseleave", handleAnimation);
     };
   }, []);
 
