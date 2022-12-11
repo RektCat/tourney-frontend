@@ -1,6 +1,7 @@
 import anime from "animejs";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import TournamentIcon from "../components/Icons/TournamentIcon";
 import nextId from "../functions/generateElementId";
 
 function Home() {
@@ -29,7 +30,7 @@ const LinkStyled = ({ to = "#", children }) => {
       animations.current.hover = anime({
         targets: `#${id.current}`,
         scale: [animScale.current, 5],
-        duration: 600,
+        duration: 500,
         easing: "linear",
         begin: function () {
           animations.current.leave?.pause();
@@ -42,7 +43,7 @@ const LinkStyled = ({ to = "#", children }) => {
       animations.current.leave = anime({
         targets: `#${id.current}`,
         scale: [animScale.current, 0.7],
-        duration: 600,
+        duration: 500,
         easing: "linear",
         begin: function () {
           animations.current.hover?.pause();
@@ -53,30 +54,6 @@ const LinkStyled = ({ to = "#", children }) => {
       });
     }
   };
-
-  // const handleHover = async () => {
-  //   anime({
-  //     targets: `#${id.current}`,
-  //     scale: [0.7, 5],
-  //     duration: 600,
-  //     easing: "easeInQuad",
-  //     // update: function (anim) {
-  //     //   animScale.current = 0.7 + (anim.progress / 100) * 4.3;
-  //     // },
-  //   });
-  // };
-
-  // const handleLeave = async () => {
-  //   anime({
-  //     targets: `#${id.current}`,
-  //     scale: [5, 0.7],
-  //     duration: 600,
-  //     easing: "easeInQuad",
-  //     // update: function (anim) {
-  //     //   animScale.current = 5 - (anim.progress / 100) * 4.3;
-  //     // },
-  //   });
-  // };
 
   useEffect(() => {
     ref.current?.addEventListener("mouseenter", handleAnimation);
@@ -99,7 +76,7 @@ const LinkStyled = ({ to = "#", children }) => {
           id={id.current}
           className="absolute aspect-square h-full scale-75 bg-gradient-radial from-white/5 via-white/50 to-white/0"
         ></div>
-        <div className="relative grid w-full place-items-center rounded-tl-[20%] rounded-br-[20%] bg-gray-900 py-12">
+        <div className="relative isolate grid w-full place-items-center rounded-tl-[20%] rounded-br-[20%] bg-gray-900 py-8 md:py-12">
           {children}
         </div>
       </div>
@@ -138,11 +115,13 @@ const JoinGameButton = () => {
         baseProfile="tiny"
         version="1.2"
         viewBox="0 0 24 24"
-        className="absolute top-1 aspect-square h-[35%] fill-outline"
+        className="absolute left-0 -z-10 aspect-square h-[65%] fill-outline"
       >
         <path d="M12 14c2.764 0 5-2.238 5-5s-2.236-5-5-5-5 2.238-5 5 2.236 5 5 5zm0-8c1.654 0 3 1.346 3 3s-1.346 3-3 3-3-1.346-3-3 1.346-3 3-3zm8 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zm0-4c.827 0 1.5.673 1.5 1.5S20.827 14 20 14s-1.5-.673-1.5-1.5.673-1.5 1.5-1.5zm0 4.59c-1.331 0-2.332.406-2.917.969C15.968 15.641 14.205 15 12 15c-2.266 0-3.995.648-5.092 1.564-.596-.565-1.608-.975-2.908-.975-2.188 0-3.5 1.091-3.5 2.183 0 .545 1.312 1.092 3.5 1.092.604 0 1.146-.051 1.623-.133l-.04.27c0 1 2.405 2 6.417 2 3.762 0 6.417-1 6.417-2l-.021-.255c.463.073.996.118 1.604.118 2.051 0 3.5-.547 3.5-1.092 0-1.092-1.373-2.182-3.5-2.182zM4 17.863c-1.309 0-2.068-.207-2.417-.354.239-.405 1.003-.92 2.417-.92 1.107 0 1.837.351 2.208.706l-.235.344c-.452.119-1.108.224-1.973.224zM12 19c-2.163 0-3.501-.312-4.184-.561C8.337 17.761 9.734 17 12 17c2.169 0 3.59.761 4.148 1.425-.755.27-2.162.575-4.148.575zm8-1.137c-.914 0-1.546-.103-1.973-.213a3.42 3.42 0 00-.248-.375c.356-.345 1.071-.685 2.221-.685 1.324 0 2.141.501 2.404.911-.39.163-1.205.362-2.404.362zM4 15a2.5 2.5 0 100-5 2.5 2.5 0 000 5zm0-4c.827 0 1.5.673 1.5 1.5S4.827 14 4 14s-1.5-.673-1.5-1.5S3.173 11 4 11z"></path>
       </svg>
-      <span className=" text-[calc(1rem_+_1vw)]">Join a Tournament</span>
+      <span className="ml-[10%] text-[calc(1rem_+_1vw)] backdrop-blur-md md:ml-0">
+        Join a Tournament
+      </span>
     </LinkStyled>
   );
 };
@@ -150,7 +129,10 @@ const JoinGameButton = () => {
 const CreateTournamentButton = () => {
   return (
     <LinkStyled>
-      <span className=" text-[calc(1rem_+_1vw)]">Create a Tournament</span>
+      <TournamentIcon className="absolute left-0 -z-10 aspect-square h-[65%] text-outline" />
+      <span className="ml-[10%] text-[calc(1rem_+_1vw)] backdrop-blur-md md:ml-0">
+        Create a Tournament
+      </span>
     </LinkStyled>
   );
 };
