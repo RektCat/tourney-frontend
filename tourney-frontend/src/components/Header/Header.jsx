@@ -10,22 +10,41 @@ import BookOpenIcon from "../Icons/BookOpenIcon";
 
 function Header() {
   return (
-    <nav className="flex justify-between pt-2 px-2">
+    <nav className="flex justify-between px-2 pt-2">
       <Link to="/" replace>
-        <img src="/Tourney-Darts.png" className="w-[120px] md:w-[200px] transition-all" />
+        <img
+          src="/Tourney-Darts.png"
+          className="w-[120px] transition-all md:w-[200px]"
+        />
       </Link>
       <DropDown>
         <a href="#">
-          <TextWithIcon logo={<BookOpenIcon fill="white" className="w-[2rem] h-[2rem]" />}>HowToPlay</TextWithIcon>
+          <TextWithIcon
+            logo={<BookOpenIcon fill="white" className="h-[2em] w-[2em]" />}
+          >
+            HowToPlay
+          </TextWithIcon>
         </a>
         <a href="#">
-          <TextWithIcon logo={<GithubLogo fill="white" className="w-[2rem] h-[2rem]" />}>Frontend</TextWithIcon>
+          <TextWithIcon
+            logo={<GithubLogo fill="white" className="h-[2em] w-[2em]" />}
+          >
+            Frontend
+          </TextWithIcon>
         </a>
         <a href="#">
-          <TextWithIcon logo={<GithubLogo fill="white" className="w-[2rem] h-[2rem]" />}>Backend</TextWithIcon>
+          <TextWithIcon
+            logo={<GithubLogo fill="white" className="h-[2em] w-[2em]" />}
+          >
+            Backend
+          </TextWithIcon>
         </a>
         <a href="#">
-          <TextWithIcon logo={<DependencyIcon fill="white" className="w-[2rem] h-[2rem]" />}>Dependencies</TextWithIcon>
+          <TextWithIcon
+            logo={<DependencyIcon fill="white" className="h-[2em] w-[2em]" />}
+          >
+            Dependencies
+          </TextWithIcon>
         </a>
       </DropDown>
     </nav>
@@ -35,9 +54,17 @@ function Header() {
 const DropDown = ({ children }) => {
   const [open, setOpen] = useState(false);
   const animId = useRef(nextId());
+  const elementRoot = useRef();
+
+  const clickAway = (e) => {
+    if (!elementRoot.current.contains(e.target)) {
+      setOpen(false);
+    }
+  };
 
   useEffect(() => {
     if (open) {
+      window.addEventListener("click", clickAway);
       anime({
         targets: `#${animId.current}`,
         begin: function () {
@@ -59,26 +86,47 @@ const DropDown = ({ children }) => {
           toggleDisplay(false, animId.current);
         },
       });
+      window.removeEventListener("click", clickAway);
     }
+
+    return () => {
+      window.removeEventListener("click", clickAway);
+    };
   }, [open]);
 
   return (
-    <ul className="relative isolate">
+    <ul
+      ref={elementRoot}
+      className="relative isolate z-50 text-sm md:text-base"
+    >
       <li className="text-right">
         <button
           className={
-            "p-1 pb-0 rounded-t-[50%] border border-b-0 transition-colors duration-500 ease-[cubic-bezier(0.11, 0, 0.5, 0)] " +
-            (open ? "bg-secondary border-accent" : "bg-transparent border-transparent")
+            "ease-[cubic-bezier(0.11, 0, 0.5, 0)] group rounded-t-[50%] border border-b-0 p-1 pb-0 transition-all duration-500 " +
+            (open
+              ? "border-accent bg-secondary"
+              : "border-transparent bg-transparent")
           }
           onClick={() => setOpen((prev) => !prev)}
         >
-          <InfoIcon fill="white" className="w-[2rem] h-[2rem]" />
+          <InfoIcon
+            fill="white"
+            className="h-[2em] w-[2em] transition-transform group-active:scale-90"
+          />
         </button>
       </li>
-      <li id={animId.current} className={"-z-10 absolute right-0 top-[36px] opacity-0 origin-top-right border border-accent"}>
+      <li
+        id={animId.current}
+        className={
+          "absolute right-0 top-[32px] -z-10 origin-top-right border border-accent opacity-0 md:top-[36px]"
+        }
+      >
         <ul className="bg-secondary p-2">
           {children.map((element, i) => (
-            <li className="mb-4 last-of-type:mb-0" key={i}>
+            <li
+              className="mb-3 border-b border-transparent p-1 last-of-type:mb-0 hover:border-accent"
+              key={i}
+            >
               {element}
             </li>
           ))}
@@ -90,7 +138,7 @@ const DropDown = ({ children }) => {
 
 const TextWithIcon = ({ logo, children }) => {
   return (
-    <span className="flex gap-2 items-center">
+    <span className="flex items-center gap-2">
       {logo}
       <span>{children}</span>
     </span>
