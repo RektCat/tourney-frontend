@@ -11,10 +11,14 @@ import BookOpenIcon from "../Icons/BookOpenIcon";
 function Header() {
   return (
     <nav className="flex justify-between px-2 pt-2">
-      <Link to="/" replace>
+      <Link
+        to="/"
+        replace
+        className="transition-color group border-b border-transparent hover:border-primary"
+      >
         <img
           src="/Tourney-Darts.png"
-          className="w-[120px] transition-all md:w-[200px]"
+          className="w-[120px] transition-all group-hover:-translate-y-1 md:w-[200px]"
         />
       </Link>
       <DropDown>
