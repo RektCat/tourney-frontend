@@ -1,6 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
+import CreateTournament from "./pages/CreateTournament";
 import Home from "./pages/Home";
+import JoinGame from "./pages/JoinGame";
+import ENDPOINTS from "./static/constants/ENDPOINTS";
 
 function Routing() {
   return (
@@ -8,6 +11,11 @@ function Routing() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route
+            path={ENDPOINTS.createTournament}
+            element={<CreateTournament />}
+          />
+          <Route path={ENDPOINTS.joinGame} element={<JoinGame />} />
           {/* <Route path={ENDPOINTS.createTournament} element={<CreateTournament />} />
           <Route path={ENDPOINTS.lobbyFinder} element={<LobbyFinder />} />
           <Route path={ENDPOINTS.browse} element={<Browser />} />

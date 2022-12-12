@@ -3,16 +3,14 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import TournamentIcon from "../components/Icons/TournamentIcon";
 import nextId from "../functions/generateElementId";
+import ENDPOINTS from "../static/constants/ENDPOINTS";
 
 function Home() {
   return (
     <div className="flex flex-col items-center gap-[5vh] px-2 pt-[10vh]">
-      <h2>Home</h2>
+      <h2>Home...</h2>
       <JoinGameButton />
       <CreateTournamentButton />
-      <footer className="absolute bottom-0 w-full border-t border-t-white bg-white/10 py-[2px] text-center text-xs">
-        Created by <b>Norbert Tanács</b> for thesis
-      </footer>
     </div>
   );
 }
@@ -69,14 +67,14 @@ const LinkStyled = ({ to = "#", children }) => {
     <Link
       to={to}
       ref={ref}
-      className="w-full max-w-[650px] transition-transform active:scale-95"
+      className="w-full max-w-[600px] transition-transform active:scale-95"
     >
-      <div className="relative isolate grid place-items-center overflow-hidden bg-gradient-to-tr from-primary/70 to-accent p-3">
+      <div className="relative isolate grid place-items-center overflow-hidden bg-gradient-to-tr from-primary/70 to-accent p-2">
         <div
           id={id.current}
           className="absolute aspect-square h-full scale-75 bg-gradient-radial from-white/5 via-white/50 to-white/0"
         ></div>
-        <div className="relative isolate grid w-full place-items-center rounded-tl-[20%] rounded-br-[20%] bg-gray-900 py-8 md:py-12">
+        <div className="relative isolate grid w-full place-items-center rounded-tl-[20%] rounded-br-[20%] bg-gray-900 py-6 md:py-8">
           {children}
         </div>
       </div>
@@ -86,7 +84,7 @@ const LinkStyled = ({ to = "#", children }) => {
 
 const JoinGameButton = () => {
   return (
-    <LinkStyled to="#">
+    <LinkStyled to={ENDPOINTS.joinGame}>
       {/* <svg
         strokeWidth="0"
         xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +126,7 @@ const JoinGameButton = () => {
 
 const CreateTournamentButton = () => {
   return (
-    <LinkStyled>
+    <LinkStyled to={ENDPOINTS.createTournament}>
       <TournamentIcon className="absolute left-0 -z-10 aspect-square h-[65%] text-outline" />
       <span className="ml-[10%] text-[calc(1rem_+_1vw)] backdrop-blur-md md:ml-0">
         Create a Tournament
