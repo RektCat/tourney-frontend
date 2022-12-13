@@ -74,7 +74,7 @@ const LinkStyled = ({ to = "#", children }) => {
           id={id.current}
           className="absolute aspect-square h-full scale-75 bg-gradient-radial from-white/5 via-white/50 to-white/0"
         ></div>
-        <div className="relative isolate grid w-full place-items-center rounded-tl-[20%] rounded-br-[20%] bg-gray-900 py-6 md:py-8">
+        <div className="relative isolate grid w-full place-items-center rounded-tl-[20%] rounded-br-[20%] bg-gray-900 py-4 md:py-6">
           {children}
         </div>
       </div>

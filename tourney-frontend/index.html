@@ -5,9 +5,42 @@
     <link rel="icon" type="image/svg+xml" href="/Tourney-Logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tourney</title>
+    <style>
+      .noscript {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        background-color: rgb(24 24 27);
+      }
+      .noscript h1 {
+        font-size: 2rem;
+        line-height: 0.9;
+        text-align: center;
+        color: white;
+        padding-bottom: 10vh;
+      }
+
+      .noscript mark {
+        background-image: linear-gradient(
+          to right,
+          rgb(214 26 70),
+          rgb(66, 248, 193)
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <noscript>
+      <div class="noscript">
+        <h1>
+          Enable Javascript to create your next <mark>amazing</mark> tournament!
+        </h1>
+      </div>
+    </noscript>
   </body>
 </html>
