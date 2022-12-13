@@ -3,6 +3,12 @@ import { useEffect, useRef } from "react";
 import nextId from "../../functions/generateElementId";
 import toggleDisplay from "../../functions/toggleElementDisplay";
 
+/**
+ * Wrapper component for tab pages
+ * @param show - Boolean to show or not
+ * @param tabtitle - TabsHeader to show this title
+ * @param first - Which tab to rendeer first
+ */
 function Tab({ children, show, tabtitle, first = false }) {
   const id = useRef(nextId());
   const ref = useRef();
@@ -47,4 +53,6 @@ function Tab({ children, show, tabtitle, first = false }) {
   );
 }
 
+//Indentifies its type
+Tab.typeName = "Tab";
 export default Tab;

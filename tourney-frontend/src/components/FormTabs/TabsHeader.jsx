@@ -1,5 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
 
+/**
+ *  Render the header for which tab is rendered
+ */
 const TabsHeader = ({ names, currentindex }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
 
