@@ -18,6 +18,7 @@ function Tab({ children, show, tabtitle, first = false }) {
       anime({
         targets: ref.current,
         opacity: 1,
+        scale: 1,
         begin: function () {
           toggleDisplay(true, id.current);
         },
@@ -29,6 +30,7 @@ function Tab({ children, show, tabtitle, first = false }) {
       anime({
         targets: ref.current,
         opacity: 0,
+        scale: 0.9,
         duration: 300,
         easing: "easeInQuad",
         complete: function () {
@@ -45,7 +47,7 @@ function Tab({ children, show, tabtitle, first = false }) {
       data-title={tabtitle}
       className={
         "col-start-1 col-end-[-1] row-start-1 row-end-[-1]" +
-        (first ? "" : "hidden opacity-0")
+        (first ? "" : "hidden scale-90 opacity-0")
       }
     >
       {children}

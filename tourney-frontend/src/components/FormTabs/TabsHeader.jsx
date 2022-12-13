@@ -83,7 +83,7 @@ const TabHeaderMarker = ({ index, name, currentindex }) => {
   return (
     <span
       className={
-        "inline-block border border-accent transition-opacity duration-300 " +
+        "inline-block border border-accent transition-opacity duration-300 first-of-type:rounded-l-full last-of-type:rounded-r-full " +
         (currentindex >= index ? "opacity-100" : "opacity-50")
       }
     >

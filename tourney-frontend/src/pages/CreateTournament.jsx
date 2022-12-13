@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import Page1 from "../components/CreateTournamentPages/Page1";
+import Page2 from "../components/CreateTournamentPages/Page2";
 import Between from "../components/FormTabs/Between";
 import FormTabs from "../components/FormTabs/FormTabs";
 import Tab from "../components/FormTabs/Tab";
+import nextId from "../functions/generateElementId";
 
 function CreateTournament() {
   const [currentindex, setCurrentindex] = useState(0);
+  const formIds = useRef([nextId(), nextId(), nextId(), nextId()]);
 
   const handleNext = () => {
     if (currentindex >= 3) return;
@@ -64,10 +68,12 @@ function CreateTournament() {
             </button>
           </div>
         </Between>
-        <Tab tabtitle={"Some other text"} first>
-          <div className="bg-warning pb-2">1</div>
+        <Tab tabtitle={"Tournament details"} first>
+          <Page1 id={formIds.current[0]} />
         </Tab>
-        <Tab>2</Tab>
+        <Tab tabtitle={"Select sports"}>
+          <Page2 id={formIds.current[1]} />
+        </Tab>
         <Tab>3</Tab>
         <Tab tabtitle={"Something very very long"}>
           <div className="bg-warning pb-8">3</div>
