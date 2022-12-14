@@ -12,6 +12,12 @@ function CreateTournament() {
 
   const handleNext = () => {
     if (currentindex >= 3) return;
+    if (
+      !document.getElementById(formIds.current[currentindex]).checkValidity()
+    ) {
+      document.getElementById(formIds.current[currentindex] + "submit").click();
+      return;
+    }
     setCurrentindex((prev) => ++prev);
   };
   const handlePrevious = () => {

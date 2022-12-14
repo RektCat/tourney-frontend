@@ -10,7 +10,7 @@ export const BasicInput = forwardRef((htmlprops, ref) => {
     <input
       ref={ref}
       className={
-        "w-full rounded-r-2xl bg-transparent px-2 py-1 text-base text-black focus:outline-none md:text-lg" +
+        "w-full rounded-r-2xl bg-transparent px-2 py-1 text-sm text-black focus:outline-none md:text-base" +
         (className ? className : "")
       }
       {...props}
@@ -28,7 +28,7 @@ export const BasicInputWithLabel = (htmlprops) => {
     anime({
       targets: spanref.current,
       translateX: ["-100%", 0],
-      duration: 300,
+      duration: 500,
       easing: "easeOutElastic(2, .6)",
     });
   };
@@ -53,7 +53,10 @@ export const BasicInputWithLabel = (htmlprops) => {
 
   return (
     <div className="w-full">
-      <label htmlFor={id.current} className="ml-4 mb-1 block">
+      <label
+        htmlFor={id.current}
+        className="ml-4 mb-1 block text-sm md:text-base"
+      >
         {labeltext}
       </label>
       <div className="group relative isolate w-full overflow-hidden rounded-r-2xl bg-white pl-2">
