@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePage1Store } from "../../stores/CreateTournamentStore";
 import ArrowDown from "../Icons/ArrowDown";
 import { BasicInputWithLabel } from "../Inputs/BasicInput";
 import FormHeader from "./FormHeader";
@@ -6,8 +7,13 @@ import FormWrapper from "./FormWrapper";
 
 //TODO: onBlur functions & JSDoc
 function Page1({ id }) {
+  //error
+  const setProps = usePage1Store((state) => state.setPage1Props);
+  const handleSubmit = (e) => {
+    setProps("valami");
+  };
   return (
-    <FormWrapper id={id}>
+    <FormWrapper id={id} onSubmit={handleSubmit}>
       <FormHeader>Tournament Details</FormHeader>
       <div className="mx-1 flex flex-col items-center justify-center gap-4 md:mx-[10%]">
         <BasicInputWithLabel
