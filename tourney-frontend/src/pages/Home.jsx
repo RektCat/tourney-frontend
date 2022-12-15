@@ -18,7 +18,7 @@ function Home() {
 const LinkStyled = ({ to = "#", children }) => {
   const id = useRef(nextId());
   const ref = useRef();
-  const animScale = useRef(0.7);
+  const animScale = useRef(0);
   const animations = useRef({});
 
   //TODO: animation smoothen transition (animation skips one animScale update)
@@ -27,27 +27,27 @@ const LinkStyled = ({ to = "#", children }) => {
     if (e.type === "mouseenter") {
       animations.current.hover = anime({
         targets: `#${id.current}`,
-        scale: [animScale.current, 5],
-        duration: 500,
+        scale: [animScale.current, 1],
+        duration: 350,
         easing: "linear",
         begin: function () {
           animations.current.leave?.pause();
         },
         update: function (anim) {
-          animScale.current = 0.7 + (anim.progress / 100) * 4.3;
+          animScale.current = 0 + anim.progress / 100;
         },
       });
     } else {
       animations.current.leave = anime({
         targets: `#${id.current}`,
-        scale: [animScale.current, 0.7],
-        duration: 500,
+        scale: [animScale.current, 0],
+        duration: 350,
         easing: "linear",
         begin: function () {
           animations.current.hover?.pause();
         },
         update: function (anim) {
-          animScale.current = 5 - (anim.progress / 100) * 4.3;
+          animScale.current = 1 - anim.progress / 100;
         },
       });
     }
@@ -72,7 +72,7 @@ const LinkStyled = ({ to = "#", children }) => {
       <div className="relative isolate grid place-items-center overflow-hidden bg-gradient-to-tr from-primary/70 to-accent p-2">
         <div
           id={id.current}
-          className="absolute aspect-square h-full scale-75 bg-gradient-radial from-white/5 via-white/50 to-white/0"
+          className="absolute aspect-square w-full scale-0 bg-gradient-radial from-white/5 via-white/50 to-white/0"
         ></div>
         <div className="relative isolate grid w-full place-items-center rounded-tl-[20%] rounded-br-[20%] bg-gray-900 py-4 md:py-6">
           {children}
