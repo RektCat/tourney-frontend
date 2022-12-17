@@ -7,13 +7,10 @@ import FormWrapper from "./FormWrapper";
 
 //TODO: onBlur functions & JSDoc
 function Page1({ id }) {
-  //error
   const setProps = usePage1Store((state) => state.setPage1Props);
-  const handleSubmit = (e) => {
-    setProps("valami");
-  };
+
   return (
-    <FormWrapper id={id} onSubmit={handleSubmit}>
+    <FormWrapper id={id} onSubmit={setProps}>
       <FormHeader>Tournament Details</FormHeader>
       <div className="mx-1 flex flex-col items-center justify-center gap-4 md:mx-[10%]">
         <BasicInputWithLabel
@@ -32,7 +29,7 @@ const SwitchTab = () => {
   const [tab, setTab] = useState(true);
   const [maxplayers, setMaxplayers] = useState(0);
 
-  const handleTabChange = (bool) => {
+  const handleTabChangeBool = (bool) => {
     return () => {
       setTab(bool);
     };
@@ -48,7 +45,7 @@ const SwitchTab = () => {
           }
         >
           <button
-            onClick={handleTabChange(true)}
+            onClick={handleTabChangeBool(true)}
             type="button"
             className="h-full w-full py-1 text-sm md:text-base"
           >
@@ -70,7 +67,7 @@ const SwitchTab = () => {
           }
         >
           <button
-            onClick={handleTabChange(false)}
+            onClick={handleTabChangeBool(false)}
             type="button"
             className="h-full w-full py-1 text-sm md:text-base"
           >
@@ -169,9 +166,16 @@ const SwitchTab = () => {
               <ArrowDown className="h-4 w-4" />
               <ArrowDown className="h-4 w-4" />
             </span>
-            <span>Number of rounds: </span>
-            <span>{maxplayers}</span>
           </p>
+          <BasicInputWithLabel
+            type="text"
+            name="roundCount"
+            labeltext="Number of rounds: "
+            required
+            disabled={tab}
+            value={maxplayers}
+            readOnly
+          />
         </div>
       </div>
     </div>
