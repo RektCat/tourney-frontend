@@ -1,5 +1,5 @@
-function scrollHorizontally(element) {
-  console.log(element);
+function scrollToHorizontally(element) {
+  element.parentNode.scrollLeft = element.offsetLeft - 24;
 }
 
-export default scrollHorizontally;
+export default scrollToHorizontally;

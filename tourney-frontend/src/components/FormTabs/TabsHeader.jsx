@@ -1,4 +1,7 @@
+import { useEffect } from "react";
+import { useRef } from "react";
 import { Fragment } from "react";
+import scrollToHorizontally from "../../functions/scrollElementHorizontally";
 
 /**
  *  Render the header for which tab is rendered
@@ -36,8 +39,17 @@ const TabsHeader = ({ names, currentindex }) => {
 };
 
 const TabHeaderMarker = ({ index, name, currentindex }) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    if (currentindex === index) {
+      scrollToHorizontally(ref.current);
+    }
+  }, [currentindex]);
+
   return (
     <span
+      ref={ref}
       className={
         "inline-block border border-accent transition-opacity duration-300 first-of-type:rounded-l-full last-of-type:rounded-r-full " +
         (currentindex >= index ? "opacity-100" : "opacity-50")

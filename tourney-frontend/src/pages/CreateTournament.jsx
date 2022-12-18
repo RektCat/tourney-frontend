@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import Page1 from "../components/CreateTournamentPages/Page1";
 import Page2 from "../components/CreateTournamentPages/Page2";
+import Page3 from "../components/CreateTournamentPages/Page3";
 import Between from "../components/FormTabs/Between";
 import FormTabs from "../components/FormTabs/FormTabs";
 import Tab from "../components/FormTabs/Tab";
@@ -79,8 +80,10 @@ function CreateTournament() {
         <Tab tabtitle={"Select sports"}>
           <Page2 id={formIds.current[1]} />
         </Tab>
-        <Tab>3</Tab>
-        <Tab tabtitle={"Something very very long"}>
+        <Tab tabtitle={"Rounds to sport"}>
+          <Page3 id={formIds.current[2]} />
+        </Tab>
+        <Tab tabtitle={"Miscallenous"}>
           <div className="bg-warning pb-8">3</div>
         </Tab>
       </FormTabs>
