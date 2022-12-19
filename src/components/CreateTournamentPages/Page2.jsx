@@ -1,4 +1,4 @@
-import { BASESPORTS, DEFAULTSPORT } from "../../static/constants/SportEnums";
+import { DefaultSport } from "../../models/SportModels";
 import FormHeader from "./FormHeader";
 import FormWrapper from "./FormWrapper";
 import beerpongurl from "../../static/images/unsplash-beerpongcupsneon_small.jpg";
@@ -10,6 +10,7 @@ import { useState } from "react";
 import Tick from "../Icons/Tick";
 import SectionHeader from "./SectionHeader";
 import Section from "./Section";
+import BASESPORTS from "../../static/constants/BaseSports";
 
 function Page2({ id }) {
   const setProps = (e) => {
@@ -34,13 +35,13 @@ function Page2({ id }) {
 
 const switchImageUrl = (defaultSport) => {
   switch (defaultSport) {
-    case DEFAULTSPORT.beerpong:
+    case DefaultSport.Beerpong:
       return beerpongurl;
-    case DEFAULTSPORT.darts:
+    case DefaultSport.Darts:
       return dartsurl;
-    case DEFAULTSPORT.snooker:
+    case DefaultSport.Snooker:
       return snookerurl;
-    case DEFAULTSPORT.tablefootball:
+    case DefaultSport.Tablefootball:
       return tablefootballurl;
   }
 };

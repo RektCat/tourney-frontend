@@ -1,5 +1,5 @@
-import anime from "animejs";
-import { useEffect, useRef } from "react";
+import anime, { AnimeInstance } from "animejs";
+import { useEffect, useRef, PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
 import TournamentIcon from "../components/Icons/TournamentIcon";
 import nextId from "../functions/generateElementId";
@@ -15,15 +15,25 @@ function Home() {
   );
 }
 
-const LinkStyled = ({ to = "#", children }) => {
+interface LinkProps {
+  to: string;
+}
+
+interface AnimationsDict {
+  hover: AnimeInstance;
+  leave: AnimeInstance;
+}
+
+const LinkStyled = ({ to = "#", children }: PropsWithChildren<LinkProps>) => {
   const id = useRef(nextId());
-  const ref = useRef();
+  const ref = useRef<HTMLAnchorElement>(null);
   const animScale = useRef(0);
-  const animations = useRef({});
+  // @ts-ignore: Do not know hot to fix this as of yet --2022.12.19.--
+  const animations = useRef<AnimationsDict>({});
 
   //TODO: animation smoothen transition (animation skips one animScale update)
   // With linear its better
-  const handleAnimation = (e) => {
+  const handleAnimation = (e: Event) => {
     if (e.type === "mouseenter") {
       animations.current.hover = anime({
         targets: `#${id.current}`,
