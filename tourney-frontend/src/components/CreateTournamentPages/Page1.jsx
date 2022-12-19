@@ -12,13 +12,15 @@ function Page1({ id }) {
   return (
     <FormWrapper id={id} onSubmit={setProps}>
       <FormHeader>Tournament Details</FormHeader>
-      <div className="mx-1 flex flex-col items-center justify-center gap-4 md:mx-[10%]">
-        <BasicInputWithLabel
-          type="text"
-          name="tournamentName"
-          labeltext="Tournament name"
-          required
-        />
+      <div className="flex flex-col items-center justify-center gap-4 md:mx-[10%]">
+        <div className="w-full px-1 md:px-0">
+          <BasicInputWithLabel
+            type="text"
+            name="tournamentName"
+            labeltext="Tournament name"
+            required
+          />
+        </div>
         <SwitchTab />
       </div>
     </FormWrapper>
@@ -36,7 +38,7 @@ const SwitchTab = () => {
   };
 
   return (
-    <div className="w-full border border-accent bg-gray-900 pb-4">
+    <div className="w-full border-y border-accent bg-gray-900 pb-4 md:border-x">
       <div className="mb-4 flex w-full">
         <div
           className={
@@ -162,7 +164,7 @@ const SwitchTab = () => {
             disabled={tab}
           />
           <p>
-            <span className="flex py-2">
+            <span className="flex pb-2 pt-3 pl-4">
               <ArrowDown className="h-4 w-4" />
               <ArrowDown className="h-4 w-4" />
             </span>

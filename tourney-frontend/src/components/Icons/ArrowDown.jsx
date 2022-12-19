@@ -1,3 +1,4 @@
+//TODO: user vite-svgr -> import svgs as ReactComponent
 function ArrowDown(props) {
   return (
     <svg

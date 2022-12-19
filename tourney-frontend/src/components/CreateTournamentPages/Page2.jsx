@@ -3,20 +3,31 @@ import FormHeader from "./FormHeader";
 import FormWrapper from "./FormWrapper";
 import beerpongurl from "../../static/images/unsplash-beerpongcupsneon_small.jpg";
 import dartsurl from "../../static/images/unsplash-darts_small.jpg";
-//TODO: replace image with snooker instead of billiard
-import snookerurl from "../../static/images/unsplash-billiard_small.jpg";
+import snookerurl from "../../static/images/unsplash-snooker_small.jpg";
 import tablefootballurl from "../../static/images/unsplash-tablefootball_small.jpg";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useState } from "react";
+import Tick from "../Icons/Tick";
+import SectionHeader from "./SectionHeader";
+import Section from "./Section";
 
 function Page2({ id }) {
+  const setProps = (e) => {
+    const tmp = new FormData(e.target);
+    console.log(tmp);
+  };
+
   return (
-    <FormWrapper id={id}>
-      <FormHeader>Select sports</FormHeader>
-      <div className="flex flex-wrap gap-4">
-        {Object.keys(BASESPORTS).map((sportKey, i) => (
-          <BaseSportCard key={i} sport={BASESPORTS[sportKey]} />
-        ))}
-      </div>
+    <FormWrapper id={id} onSubmit={setProps}>
+      <FormHeader>Select sports or create your own</FormHeader>
+      <Section>
+        <SectionHeader>Base sports</SectionHeader>
+        <div className="flex flex-wrap gap-4">
+          {Object.keys(BASESPORTS).map((sportKey, i) => (
+            <BaseSportCard key={i} sport={BASESPORTS[sportKey]} />
+          ))}
+        </div>
+      </Section>
     </FormWrapper>
   );
 }
@@ -35,22 +46,58 @@ const switchImageUrl = (defaultSport) => {
 };
 
 const BaseSportCard = ({ sport }) => {
+  const ref = useRef();
+  const [selected, setSelected] = useState(false);
+
+  const handleClick = () => {
+    setSelected((state) => !state);
+  };
+
+  useEffect(() => {
+    ref.current?.addEventListener("click", handleClick);
+
+    return () => {
+      ref.current?.removeEventListener("click", handleClick);
+    };
+  }, []);
+
   const imgurl = useRef(switchImageUrl(sport.defaultSport));
   return (
-    <div>
-      <button className="flex overflow-hidden rounded-lg border-2 border-gray-300 bg-gray-300 text-black drop-shadow-lg">
-        {/* //TODO: */}
-        {/* <input type="checkbox" name={sport.name} /> */}
-        <span>
-          <img
-            src={imgurl.current}
-            className="h-auto w-[80px] object-contain md:w-[100px]"
-            alt="sport image"
-          />
-        </span>
-        <span className="inline-block px-4 py-1">sport</span>
-      </button>
-    </div>
+    <button
+      type="button"
+      ref={ref}
+      className={
+        "relative flex overflow-hidden rounded-lg bg-gray-300 p-1 text-black outline outline-2 outline-transparent transition-all canhover:hover:outline-outline" +
+        (selected ? " opacity-100" : " opacity-75")
+      }
+    >
+      <input
+        type="checkbox"
+        className="absolute appearance-none"
+        checked={selected}
+        readOnly
+        name={sport.name}
+      />
+      <span className="absolute top-[2px] left-[2px] z-50 inline-block rounded-br-xl bg-gray-300">
+        <Tick
+          className={
+            "h-6 w-6 fill-accent transition-opacity" +
+            (selected ? " opacity-100" : " opacity-0")
+          }
+        />
+      </span>
+      <span>
+        <img
+          src={imgurl.current}
+          className="h-[80px] w-[80px] object-cover md:h-[100px] md:w-[100px]"
+          alt="sport image"
+        />
+      </span>
+      <p className="flex flex-col px-4 pb-1">
+        <span className="text-lg font-bold md:text-xl">{sport.name}</span>
+        <span className="inline-block">{sport.name}</span>
+      </p>
+    </button>
   );
 };
 

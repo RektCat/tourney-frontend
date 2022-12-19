@@ -7,7 +7,7 @@ function FormWrapper({ id, children, onSubmit = () => {} }) {
   return (
     <form id={id} onSubmit={handleSubmit}>
       <div className="border-2 border-accent p-1">
-        <div className="rounded-2xl border border-accent bg-secondary py-4 px-1 md:py-6 md:px-2">
+        <div className="rounded-t-2xl border border-accent bg-secondary pt-4 md:pt-6">
           {children}
         </div>
       </div>

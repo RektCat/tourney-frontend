@@ -18,7 +18,7 @@ function Header() {
       >
         <img
           src="/Tourney-Darts.png"
-          className="w-[120px] transition-all group-hover:-translate-y-1 md:w-[200px]"
+          className="w-[120px] transition-all md:w-[200px] canhover:group-hover:-translate-y-1"
         />
       </Link>
       <DropDown>
