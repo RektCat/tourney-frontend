@@ -1,5 +1,5 @@
-let num = 0;
-function nextId() {
+let num: number = 0;
+function nextId(): string {
   return "nextId" + num++;
 }
 

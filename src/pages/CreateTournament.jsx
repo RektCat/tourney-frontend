@@ -6,7 +6,6 @@ import Between from "../components/FormTabs/Between";
 import FormTabs from "../components/FormTabs/FormTabs";
 import Tab from "../components/FormTabs/Tab";
 import nextId from "../functions/generateElementId";
-import scrollHorizontally from "../functions/scrollElementHorizontally";
 
 function CreateTournament() {
   const [currentindex, setCurrentindex] = useState(0);
