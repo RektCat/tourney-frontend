@@ -5,6 +5,10 @@
 // function wrapInArray(obj: string | string[]) {}
 // type NumberArray = Array<number>;
 // interface SMTH { [key: string]: string; }
+// interface Backpack<Type> {
+//   add: (obj: Type) => void;
+//   get: () => Type;
+// }
 
 export enum ScoringRule {
   Once,
