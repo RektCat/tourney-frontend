@@ -1,3 +1,15 @@
+// TODO: remove these -> reminder that i can do this
+// type WindowStates = "open" | "closed" | "minimized";
+// type LockStates = "locked" | "unlocked";
+// type PositiveOddNumbersUnderTen = 1 | 3 | 5 | 7 | 9;
+// function wrapInArray(obj: string | string[]) {}
+// type NumberArray = Array<number>;
+// interface SMTH { [key: string]: string; }
+// interface Backpack<Type> {
+//   add: (obj: Type) => void;
+//   get: () => Type;
+// }
+
 export enum ScoringRule {
   Once,
   Multiple,
