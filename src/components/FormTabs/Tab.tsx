@@ -1,7 +1,13 @@
 import anime from "animejs";
-import { useEffect, useRef } from "react";
+import { PropsWithChildren, useEffect, useRef } from "react";
 import nextId from "../../functions/generateElementId";
 import toggleDisplay from "../../functions/toggleElementDisplay";
+
+interface TabProps {
+  show?: boolean;
+  tabtitle: string;
+  first?: boolean;
+}
 
 /**
  * Wrapper component for tab pages
@@ -9,9 +15,9 @@ import toggleDisplay from "../../functions/toggleElementDisplay";
  * @param tabtitle - TabsHeader to show this title
  * @param first - Which tab to rendeer first
  */
-function Tab({ children, show, tabtitle, first = false }) {
+function Tab({ children, show, tabtitle, first = false }: PropsWithChildren<TabProps>) {
   const id = useRef(nextId());
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (show) {
@@ -45,10 +51,7 @@ function Tab({ children, show, tabtitle, first = false }) {
       ref={ref}
       id={id.current}
       data-title={tabtitle}
-      className={
-        "col-start-1 col-end-[-1] row-start-1 row-end-[-1]" +
-        (first ? "" : "hidden scale-90 opacity-0")
-      }
+      className={"col-start-1 col-end-[-1] row-start-1 row-end-[-1]" + (first ? "" : "hidden scale-90 opacity-0")}
     >
       {children}
     </div>

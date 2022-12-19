@@ -13,9 +13,9 @@ function CreateTournament() {
 
   const handleNext = () => {
     if (currentindex >= 3) return;
-    document.getElementById(formIds.current[currentindex] + "submit").click();
-    if (!document.getElementById(formIds.current[currentindex]).checkValidity())
-      return;
+    document.getElementById(formIds.current[currentindex] + "submit")?.click();
+    const form = document.getElementById(formIds.current[currentindex]) as HTMLFormElement;
+    if (!form?.checkValidity()) return;
 
     setCurrentindex((prev) => ++prev);
   };
@@ -30,8 +30,7 @@ function CreateTournament() {
         Create a Tournament
       </h1>
       <h2 className="mb-6 text-center text-base italic md:text-xl">
-        Customize everything to make it suit{" "}
-        <mark className="bg-transparent text-outline">Your</mark> tournament!
+        Customize everything to make it suit <mark className="bg-transparent text-outline">Your</mark> tournament!
       </h2>
       <FormTabs currentindex={currentindex}>
         <Between>
@@ -54,10 +53,7 @@ function CreateTournament() {
               </svg>
               <span>Back</span>
             </button>
-            <button
-              onClick={handleNext}
-              className="group flex items-center gap-3"
-            >
+            <button onClick={handleNext} className="group flex items-center gap-3">
               <span>{currentindex === 3 ? "Finish" : "Next"}</span>
               <svg
                 fill="currentColor"
