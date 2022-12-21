@@ -1,9 +1,11 @@
 import anime from "animejs";
-import { forwardRef } from "react";
+import { forwardRef, HTMLProps } from "react";
 import { useEffect, useRef } from "react";
 import nextId from "../../functions/generateElementId";
 
-export const BasicInput = forwardRef((htmlprops, ref) => {
+type InputProps = HTMLProps<HTMLInputElement>;
+
+export const BasicInput = forwardRef<HTMLInputElement, InputProps>((htmlprops, ref) => {
   const { className, ...props } = htmlprops;
 
   return (
@@ -18,11 +20,16 @@ export const BasicInput = forwardRef((htmlprops, ref) => {
   );
 });
 
-export const BasicInputWithLabel = (htmlprops) => {
+interface LabelProps {
+  labeltext: string;
+}
+type LabelInputProps = HTMLProps<HTMLInputElement> & LabelProps;
+
+export const BasicInputWithLabel = (htmlprops: LabelInputProps) => {
   const { labeltext, ...props } = htmlprops;
-  const id = useRef(nextId());
-  const ref = useRef();
-  const spanref = useRef();
+  const id = useRef<string>(nextId());
+  const ref = useRef<HTMLInputElement>(null);
+  const spanref = useRef<HTMLSpanElement>(null);
 
   const handleFocusAnimation = () => {
     anime({
@@ -53,10 +60,7 @@ export const BasicInputWithLabel = (htmlprops) => {
 
   return (
     <div className="w-full">
-      <label
-        htmlFor={id.current}
-        className="ml-4 mb-1 block text-sm md:text-base"
-      >
+      <label htmlFor={id.current} className="ml-4 mb-1 block text-sm md:text-base">
         {labeltext}
       </label>
       <div className="group relative isolate w-full overflow-hidden rounded-r-2xl bg-white pl-2">

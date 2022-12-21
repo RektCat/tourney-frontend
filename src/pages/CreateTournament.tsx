@@ -33,7 +33,7 @@ function CreateTournament() {
         Customize everything to make it suit <mark className="bg-transparent text-outline">Your</mark> tournament!
       </h2>
       <FormTabs currentindex={currentindex}>
-        {/* <Between>
+        <Between>
           <div className="mb-5 flex justify-between">
             <button
               onClick={handlePrevious}
@@ -77,12 +77,10 @@ function CreateTournament() {
         </Tab>
         <Tab tabtitle={"Rounds to sport"}>
           <Page3 id={formIds.current[2]} />
-        </Tab> */}
+        </Tab>
         <Tab tabtitle={"Miscallenous"}>
           <div className="bg-warning pb-8">3</div>
         </Tab>
-        szoveg
-        <div>valami</div>
       </FormTabs>
     </div>
   );
