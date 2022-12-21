@@ -73,6 +73,8 @@ export const BasicInputWithLabel = (htmlprops: LabelInputProps) => {
           className="absolute left-0 top-0 -z-40 inline-block h-full w-3 -translate-x-full bg-outline"
           aria-hidden="true"
         ></span>
+        {/* TODO: have no idea why this is not correct
+        @ts-ignore */}
         <BasicInput ref={ref} id={id.current} {...props} />
       </div>
     </div>

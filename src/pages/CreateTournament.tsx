@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Page1 from "../components/CreateTournamentPages/Page1";
 import Page2 from "../components/CreateTournamentPages/Page2";
 import Page3 from "../components/CreateTournamentPages/Page3";

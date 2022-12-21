@@ -1,4 +1,6 @@
-function Tick(props) {
+import { SVGProps } from "react";
+
+function Tick(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       fill="currentColor"

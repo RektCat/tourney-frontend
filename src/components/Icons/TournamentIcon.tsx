@@ -1,11 +1,8 @@
-function TournamentIcon(props) {
+import { SVGProps } from "react";
+
+function TournamentIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      viewBox="0 0 300 300"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         d="M108 274C108 277.146 105.673 280.824 100.09 283.943C94.6383 286.99 86.8362 289 78 289C69.1638 289 61.3617 286.99 55.9097 283.943C50.327 280.824 48 277.146 48 274C48 270.854 50.327 267.176 55.9097 264.057C61.3617 261.01 69.1638 259 78 259C86.8362 259 94.6383 261.01 100.09 264.057C105.673 267.176 108 270.854 108 274Z"
         stroke="currentColor"
@@ -41,11 +38,7 @@ function TournamentIcon(props) {
         stroke="currentColor"
         strokeWidth="8"
       />
-      <path
-        d="M123 45.5C90.5 57.5 130 84 134 74.5"
-        stroke="currentColor"
-        strokeWidth="8"
-      />
+      <path d="M123 45.5C90.5 57.5 130 84 134 74.5" stroke="currentColor" strokeWidth="8" />
     </svg>
   );
 }
