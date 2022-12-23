@@ -7,13 +7,13 @@ interface Page1StoreProps {
   tournamentName: string;
   maxPlayers: number;
   roundCount: number;
-  setPage1Props: (args: any) => void;
+  setPage1Props: (args: HTMLFormElement) => void;
 }
 
-const page1Reducer = (state: Page1StoreProps, event: SubmitEvent) => {
-  const form = new FormData(event.target as HTMLFormElement);
+const page1Reducer = (state: Page1StoreProps, form: HTMLFormElement) => {
+  const formData = new FormData(form);
 
-  for (const [key, value] of form) {
+  for (const [key, value] of formData) {
     if (typeof value !== "string") continue;
     if (!state.hasOwnProperty(key)) continue;
     if (!isNaN(parseInt(value))) {

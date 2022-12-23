@@ -5,16 +5,14 @@ import { BasicInputWithLabel } from "../Inputs/BasicInput";
 import FormHeader from "./FormHeader";
 import FormWrapper from "./FormWrapper";
 import { z } from "zod";
+import { PageProps } from "./PageProps";
 
-interface Page1Props {
-  id?: string;
-}
 //TODO: onBlur functions & JSDoc
-function Page1({ id }: Page1Props) {
+function Page1({ id, isValid }: PageProps) {
   const setProps = usePage1Store((state) => state.setPage1Props);
 
   return (
-    <FormWrapper id={id} onSubmit={setProps}>
+    <FormWrapper id={id} onValidated={setProps} isValid={isValid}>
       <FormHeader>Tournament Details</FormHeader>
       <div className="flex flex-col items-center justify-center gap-4 md:mx-[10%]">
         <div className="w-full px-1 md:px-0">
@@ -23,7 +21,7 @@ function Page1({ id }: Page1Props) {
             name="tournamentName"
             labeltext="Tournament name"
             required
-            // schema={z.string().max(32, { message: "Max length is 32!" }).email({ message: "Invalid email address" })}
+            schema={z.string().min(3, { message: "Minimum length is 3!" }).max(64, { message: "Max length is 64!" })}
           />
         </div>
         <SwitchTab />
@@ -97,20 +95,24 @@ const SwitchTab = () => {
             name="maxPlayers"
             labeltext="Max players (2 - 32)"
             pattern="[0-9]+"
-            onBlur={(e) => {
-              handleOnBlur(e.target, 2, 32);
-            }}
+            inputMode="numeric"
             required
             disabled={!tab}
+            schema={z.coerce
+              .number({ invalid_type_error: "Input must be a number!", required_error: "Required" })
+              .gte(2, { message: "Minimum is 2!" })
+              .lte(32, { message: "Maximum is 32!" })}
           />
           <BasicInputWithLabel
             type="text"
             name="roundCount"
             labeltext="Round Count (1-12)"
             pattern="[0-9]+"
-            onBlur={(e) => {
-              handleOnBlur(e.target, 1, 12);
-            }}
+            inputMode="numeric"
+            schema={z.coerce
+              .number({ invalid_type_error: "Input must be a number!", required_error: "Required" })
+              .gte(1, { message: "Minimum is 1!" })
+              .lte(12, { message: "Maximum is 12!" })}
             required
             disabled={!tab}
           />
@@ -121,11 +123,12 @@ const SwitchTab = () => {
             name="maxPlayers"
             labeltext="Max players (2 - 32)"
             pattern="[0-9]+"
-            onBlur={(e) => {
-              handleOnBlur(e.target, 2, 32);
-
+            inputMode="numeric"
+            onChange={(e) => {
+              const target = e.target as HTMLInputElement;
+              if (isNaN(parseInt(target.value))) return;
               let round = 1;
-              let int = parseInt(e.target.value);
+              let int = parseInt(target.value);
               while (true) {
                 if (2 ** round >= int) {
                   setMaxplayers(round);
@@ -136,6 +139,10 @@ const SwitchTab = () => {
             }}
             required
             disabled={tab}
+            schema={z.coerce
+              .number({ invalid_type_error: "Input must be a number!", required_error: "Required" })
+              .gte(2, { message: "Minimum is 2!" })
+              .lte(32, { message: "Maximum is 32!" })}
           />
           <p>
             <span className="flex pb-2 pt-3 pl-4">
@@ -156,17 +163,6 @@ const SwitchTab = () => {
       </div>
     </div>
   );
-};
-
-const handleOnBlur = (target: HTMLInputElement, min: number, max: number) => {
-  if (target.value === "") return;
-  let int = parseInt(target.value);
-  if (isNaN(int)) {
-    target.value = String(min);
-  } else {
-    if (int < min) target.value = String(min);
-    else if (int > max) target.value = String(max);
-  }
 };
 
 export default Page1;

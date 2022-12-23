@@ -7,21 +7,26 @@ import FormTabs from "../components/FormTabs/FormTabs";
 import Tab from "../components/FormTabs/Tab";
 import nextId from "../functions/generateElementId";
 
+const validateEvent = new Event("validate");
+
 function CreateTournament() {
-  const [currentindex, setCurrentindex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const formIds = useRef([nextId(), nextId(), nextId(), nextId()]);
+  const currentFormIsValid = useRef<boolean>(false);
 
   const handleNext = () => {
-    if (currentindex >= 3) return;
-    document.getElementById(formIds.current[currentindex] + "submit")?.click();
-    const form = document.getElementById(formIds.current[currentindex]) as HTMLFormElement;
-    if (!form?.checkValidity()) return;
-
-    setCurrentindex((prev) => ++prev);
+    if (currentIndex >= 3) return;
+    const form = document.getElementById(formIds.current[currentIndex]) as HTMLFormElement;
+    form.dispatchEvent(validateEvent);
+    if (currentFormIsValid.current) {
+      setCurrentIndex((prev) => ++prev);
+    }
+    currentFormIsValid.current = false;
   };
   const handlePrevious = () => {
-    if (currentindex <= 0) return;
-    setCurrentindex((prev) => --prev);
+    if (currentIndex <= 0) return;
+    setCurrentIndex((prev) => --prev);
+    currentFormIsValid.current = false;
   };
 
   return (
@@ -32,12 +37,12 @@ function CreateTournament() {
       <h2 className="mb-6 text-center text-base italic md:text-xl">
         Customize everything to make it suit <mark className="bg-transparent text-outline">Your</mark> tournament!
       </h2>
-      <FormTabs currentindex={currentindex}>
+      <FormTabs currentindex={currentIndex}>
         <Between>
           <div className="mb-5 flex justify-between">
             <button
               onClick={handlePrevious}
-              disabled={currentindex === 0}
+              disabled={currentIndex === 0}
               className="group flex items-center gap-3 disabled:opacity-75"
             >
               <svg
@@ -54,7 +59,7 @@ function CreateTournament() {
               <span>Back</span>
             </button>
             <button onClick={handleNext} className="group flex items-center gap-3">
-              <span>{currentindex === 3 ? "Finish" : "Next"}</span>
+              <span>{currentIndex === 3 ? "Finish" : "Next"}</span>
               <svg
                 fill="currentColor"
                 strokeWidth="0"
@@ -70,10 +75,10 @@ function CreateTournament() {
           </div>
         </Between>
         <Tab tabtitle={"Tournament details"} first>
-          <Page1 id={formIds.current[0]} />
+          <Page1 id={formIds.current[0]} isValid={currentFormIsValid} />
         </Tab>
         <Tab tabtitle={"Select sports"}>
-          <Page2 id={formIds.current[1]} />
+          <Page2 id={formIds.current[1]} isValid={currentFormIsValid} />
         </Tab>
         <Tab tabtitle={"Rounds to sport"}>
           <Page3 id={formIds.current[2]} />

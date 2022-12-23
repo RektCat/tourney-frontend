@@ -1,7 +1,8 @@
 import anime from "animejs";
-import { forwardRef, HTMLProps } from "react";
+import { forwardRef, HTMLProps, useState } from "react";
 import { useEffect, useRef } from "react";
 import nextId from "../../functions/generateElementId";
+import { z } from "zod";
 
 type InputProps = HTMLProps<HTMLInputElement>;
 
@@ -12,7 +13,7 @@ export const BasicInput = forwardRef<HTMLInputElement, InputProps>((htmlprops, r
     <input
       ref={ref}
       className={
-        "w-full rounded-r-2xl bg-transparent px-2 py-1 text-sm text-black focus:outline-none md:text-base" +
+        "w-full rounded-sm bg-transparent px-2 py-1 text-sm text-black focus:outline-none md:text-base" +
         (className ? className : "")
       }
       {...props}
@@ -22,14 +23,30 @@ export const BasicInput = forwardRef<HTMLInputElement, InputProps>((htmlprops, r
 
 interface LabelProps {
   labeltext: string;
+  // Zod schema
+  schema?: any;
 }
 type LabelInputProps = HTMLProps<HTMLInputElement> & LabelProps;
 
 export const BasicInputWithLabel = (htmlprops: LabelInputProps) => {
-  const { labeltext, ...props } = htmlprops;
+  const { labeltext, schema, ...props } = htmlprops;
+  const [errorMessages, setErrorMessages] = useState<Array<string>>([]);
   const id = useRef<string>(nextId());
   const ref = useRef<HTMLInputElement>(null);
   const spanref = useRef<HTMLSpanElement>(null);
+
+  function zValidate(e: FocusEvent) {
+    const input = e.target as HTMLInputElement;
+    if (!schema) return;
+    const result = schema.safeParse(input.value);
+    if (!result.success) {
+      ref.current?.toggleAttribute("data-invalid", true);
+      setErrorMessages(result.error.format()._errors);
+    } else {
+      ref.current?.toggleAttribute("data-invalid", false);
+      setErrorMessages([]);
+    }
+  }
 
   const handleFocusAnimation = () => {
     anime({
@@ -51,19 +68,21 @@ export const BasicInputWithLabel = (htmlprops: LabelInputProps) => {
   useEffect(() => {
     ref.current?.addEventListener("focus", handleFocusAnimation);
     ref.current?.addEventListener("blur", handleBlurAnimation);
+    ref.current?.addEventListener("blur", zValidate);
 
     return () => {
       ref.current?.removeEventListener("focus", handleFocusAnimation);
       ref.current?.removeEventListener("blur", handleBlurAnimation);
+      ref.current?.removeEventListener("blur", zValidate);
     };
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="isolate w-full">
       <label htmlFor={id.current} className="ml-4 mb-1 block text-sm md:text-base">
         {labeltext}
       </label>
-      <div className="group relative isolate w-full overflow-hidden rounded-r-2xl bg-white pl-2">
+      <div className="group relative isolate z-10 w-full overflow-hidden rounded-sm bg-white pl-2">
         <span
           className="absolute inset-0 -z-50 inline-block bg-transparent group-hover:bg-outline/20"
           aria-hidden="true"
@@ -77,6 +96,15 @@ export const BasicInputWithLabel = (htmlprops: LabelInputProps) => {
         @ts-ignore */}
         <BasicInput ref={ref} id={id.current} {...props} />
       </div>
+      {errorMessages.length !== 0 && (
+        <ul className="-z-10 -translate-y-1 rounded-b-md border border-t-0 border-warning pb-1 pt-2 pl-1 text-xs text-warning md:text-sm">
+          {errorMessages.map((text, i) => (
+            <li className="list-inside list-disc" key={i}>
+              {text}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
