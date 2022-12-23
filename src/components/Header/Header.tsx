@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import GithubLogo from "../Icons/GithubLogo";
 import DependencyIcon from "../Icons/DependencyIcon";
-import { useEffect, useRef, useState } from "react";
+import { PropsWithChildren, ReactNode, useEffect, useRef, useState } from "react";
 import InfoIcon from "../Icons/InfoIcon";
 import anime from "animejs";
 import nextId from "../../functions/generateElementId";
@@ -11,11 +11,7 @@ import BookOpenIcon from "../Icons/BookOpenIcon";
 function Header() {
   return (
     <nav className="flex justify-between px-2 pt-2">
-      <Link
-        to="/"
-        replace
-        className="transition-color group border-b border-transparent hover:border-primary"
-      >
+      <Link to="/" replace className="transition-color group border-b border-transparent hover:border-primary">
         <img
           src="/Tourney-Darts.png"
           className="w-[120px] transition-all md:w-[200px] canhover:group-hover:-translate-y-1"
@@ -23,45 +19,29 @@ function Header() {
       </Link>
       <DropDown>
         <a href="#">
-          <TextWithIcon
-            logo={<BookOpenIcon fill="white" className="h-[2em] w-[2em]" />}
-          >
-            HowToPlay
-          </TextWithIcon>
+          <TextWithIcon logo={<BookOpenIcon fill="white" className="h-[2em] w-[2em]" />}>HowToPlay</TextWithIcon>
         </a>
         <a href="#">
-          <TextWithIcon
-            logo={<GithubLogo fill="white" className="h-[2em] w-[2em]" />}
-          >
-            Frontend
-          </TextWithIcon>
+          <TextWithIcon logo={<GithubLogo fill="white" className="h-[2em] w-[2em]" />}>Frontend</TextWithIcon>
         </a>
         <a href="#">
-          <TextWithIcon
-            logo={<GithubLogo fill="white" className="h-[2em] w-[2em]" />}
-          >
-            Backend
-          </TextWithIcon>
+          <TextWithIcon logo={<GithubLogo fill="white" className="h-[2em] w-[2em]" />}>Backend</TextWithIcon>
         </a>
         <a href="#">
-          <TextWithIcon
-            logo={<DependencyIcon fill="white" className="h-[2em] w-[2em]" />}
-          >
-            Dependencies
-          </TextWithIcon>
+          <TextWithIcon logo={<DependencyIcon fill="white" className="h-[2em] w-[2em]" />}>Dependencies</TextWithIcon>
         </a>
       </DropDown>
     </nav>
   );
 }
 
-const DropDown = ({ children }) => {
-  const [open, setOpen] = useState(false);
-  const animId = useRef(nextId());
-  const elementRoot = useRef();
+const DropDown = ({ children }: { children: ReactNode }) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const animId = useRef<string>(nextId());
+  const elementRoot = useRef<HTMLUListElement>(null);
 
-  const clickAway = (e) => {
-    if (!elementRoot.current.contains(e.target)) {
+  const clickAway = (e: globalThis.MouseEvent) => {
+    if (!elementRoot.current?.contains(e.target as Node)) {
       setOpen(false);
     }
   };
@@ -99,48 +79,39 @@ const DropDown = ({ children }) => {
   }, [open]);
 
   return (
-    <ul
-      ref={elementRoot}
-      className="relative isolate z-50 text-sm md:text-base"
-    >
+    <ul ref={elementRoot} className="relative isolate z-50 text-sm md:text-base">
       <li className="text-right">
         <button
           className={
             "ease-[cubic-bezier(0.11, 0, 0.5, 0)] group rounded-t-[50%] border border-b-0 p-1 pb-0 transition-all duration-500 " +
-            (open
-              ? "border-accent bg-secondary"
-              : "border-transparent bg-transparent")
+            (open ? "border-accent bg-secondary" : "border-transparent bg-transparent")
           }
           onClick={() => setOpen((prev) => !prev)}
         >
-          <InfoIcon
-            fill="white"
-            className="h-[2em] w-[2em] transition-transform group-active:scale-90"
-          />
+          <InfoIcon fill="white" className="h-[2em] w-[2em] transition-transform group-active:scale-90" />
         </button>
       </li>
       <li
         id={animId.current}
-        className={
-          "absolute right-0 top-[32px] -z-10 origin-top-right border border-accent opacity-0 md:top-[36px]"
-        }
+        className={"absolute right-0 top-[32px] -z-10 origin-top-right border border-accent opacity-0 md:top-[36px]"}
       >
         <ul className="bg-secondary p-2">
-          {children.map((element, i) => (
-            <li
-              className="mb-3 border-b border-transparent p-1 last-of-type:mb-0 hover:border-accent"
-              key={i}
-            >
-              {element}
-            </li>
-          ))}
+          {Array.isArray(children) ? (
+            children.map((element, i) => (
+              <li className="mb-3 border-b border-transparent p-1 last-of-type:mb-0 hover:border-accent" key={i}>
+                {element}
+              </li>
+            ))
+          ) : (
+            <li className="mb-3 border-b border-transparent p-1 last-of-type:mb-0 hover:border-accent">{children}</li>
+          )}
         </ul>
       </li>
     </ul>
   );
 };
 
-const TextWithIcon = ({ logo, children }) => {
+const TextWithIcon = ({ logo, children }: PropsWithChildren<{ logo: ReactNode }>) => {
   return (
     <span className="flex items-center gap-2">
       {logo}

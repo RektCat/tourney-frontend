@@ -4,9 +4,13 @@ import ArrowDown from "../Icons/ArrowDown";
 import { BasicInputWithLabel } from "../Inputs/BasicInput";
 import FormHeader from "./FormHeader";
 import FormWrapper from "./FormWrapper";
+import { z } from "zod";
 
+interface Page1Props {
+  id?: string;
+}
 //TODO: onBlur functions & JSDoc
-function Page1({ id }) {
+function Page1({ id }: Page1Props) {
   const setProps = usePage1Store((state) => state.setPage1Props);
 
   return (
@@ -19,6 +23,7 @@ function Page1({ id }) {
             name="tournamentName"
             labeltext="Tournament name"
             required
+            // schema={z.string().max(32, { message: "Max length is 32!" }).email({ message: "Invalid email address" })}
           />
         </div>
         <SwitchTab />
@@ -28,10 +33,10 @@ function Page1({ id }) {
 }
 
 const SwitchTab = () => {
-  const [tab, setTab] = useState(true);
-  const [maxplayers, setMaxplayers] = useState(0);
+  const [tab, setTab] = useState<boolean>(true);
+  const [maxplayers, setMaxplayers] = useState<number>(0);
 
-  const handleTabChangeBool = (bool) => {
+  const handleTabChangeBool = (bool: boolean) => {
     return () => {
       setTab(bool);
     };
@@ -46,16 +51,13 @@ const SwitchTab = () => {
             (tab ? "" : "border-b-accent bg-secondary")
           }
         >
-          <button
-            onClick={handleTabChangeBool(true)}
-            type="button"
-            className="h-full w-full py-1 text-sm md:text-base"
-          >
+          <button onClick={handleTabChangeBool(true)} type="button" className="h-full w-full py-1 text-sm md:text-base">
             Round Robin
           </button>
           <input
             type="checkbox"
-            name="roundrobin"
+            name="tournamentType"
+            value="roundRobin"
             className="appearance-none"
             checked={tab}
             tabIndex={-1}
@@ -77,7 +79,8 @@ const SwitchTab = () => {
           </button>
           <input
             type="checkbox"
-            name="singleelimination"
+            name="tournamentType"
+            value="singleElimination"
             className="appearance-none"
             checked={!tab}
             readOnly
@@ -87,10 +90,7 @@ const SwitchTab = () => {
       </div>
       <div className="grid px-4">
         <div
-          className={
-            "col-start-1 col-end-[-1] row-start-1 row-end-[-1] flex flex-col gap-4 " +
-            (tab ? "" : "hidden")
-          }
+          className={"col-start-1 col-end-[-1] row-start-1 row-end-[-1] flex flex-col gap-4 " + (tab ? "" : "hidden")}
         >
           <BasicInputWithLabel
             type="text"
@@ -98,14 +98,7 @@ const SwitchTab = () => {
             labeltext="Max players (2 - 32)"
             pattern="[0-9]+"
             onBlur={(e) => {
-              if (e.target.value === "") return;
-              let int = parseInt(e.target.value);
-              if (isNaN(int)) {
-                e.target.value = 2;
-              } else {
-                if (int < 2) e.target.value = 2;
-                else if (int > 32) e.target.value = 32;
-              }
+              handleOnBlur(e.target, 2, 32);
             }}
             required
             disabled={!tab}
@@ -116,44 +109,25 @@ const SwitchTab = () => {
             labeltext="Round Count (1-12)"
             pattern="[0-9]+"
             onBlur={(e) => {
-              if (e.target.value === "") return;
-              let int = parseInt(e.target.value);
-              if (isNaN(int)) {
-                e.target.value = 1;
-              } else {
-                if (int < 2) e.target.value = 1;
-                else if (int > 12) e.target.value = 12;
-              }
+              handleOnBlur(e.target, 1, 12);
             }}
             required
             disabled={!tab}
           />
         </div>
-        <div
-          className={
-            "col-start-1 col-end-[-1] row-start-1 row-end-[-1] " +
-            (tab ? "hidden" : "")
-          }
-        >
+        <div className={"col-start-1 col-end-[-1] row-start-1 row-end-[-1] " + (tab ? "hidden" : "")}>
           <BasicInputWithLabel
             type="text"
             name="maxPlayers"
             labeltext="Max players (2 - 32)"
             pattern="[0-9]+"
             onBlur={(e) => {
-              if (e.target.value === "") return;
-              let int = parseInt(e.target.value);
-              if (isNaN(int)) {
-                e.target.value = 2;
-              } else {
-                if (int < 2) e.target.value = 2;
-                else if (int > 32) e.target.value = 32;
-              }
+              handleOnBlur(e.target, 2, 32);
 
               let round = 1;
-              let int2 = parseInt(e.target.value);
+              let int = parseInt(e.target.value);
               while (true) {
-                if (2 ** round >= int2) {
+                if (2 ** round >= int) {
                   setMaxplayers(round);
                   break;
                 }
@@ -182,6 +156,17 @@ const SwitchTab = () => {
       </div>
     </div>
   );
+};
+
+const handleOnBlur = (target: HTMLInputElement, min: number, max: number) => {
+  if (target.value === "") return;
+  let int = parseInt(target.value);
+  if (isNaN(int)) {
+    target.value = String(min);
+  } else {
+    if (int < min) target.value = String(min);
+    else if (int > max) target.value = String(max);
+  }
 };
 
 export default Page1;
