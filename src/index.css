@@ -7,6 +7,9 @@
     font-family: "Rubik", "Monaco", system-ui, monospace;
     color: white;
   }
+  body {
+    @apply bg-gray-900;
+  }
 }
 
 :root {

@@ -14,8 +14,17 @@ import { PageProps } from "./PageProps";
 import BasicButton from "../Inputs/BasicButton";
 import UploadIcon from "../Icons/UploadIcon";
 import AddIcon from "../Icons/AddIcon";
+import Modal from "../Modal/Modal";
 
 function Page2({ id, isValid }: PageProps) {
+  const [customSportModal, setCustomSportModal] = useState<boolean>(false);
+
+  const closeCustomSportModal = () => {
+    setCustomSportModal(false);
+  };
+  const openCustomSportModal = () => {
+    setCustomSportModal(true);
+  };
   // const setProps = (e) => {
   //   const tmp = new FormData(e.target);
   //   console.log(tmp);
@@ -35,10 +44,18 @@ function Page2({ id, isValid }: PageProps) {
       <Section>
         <SectionHeader>Custom sports</SectionHeader>
         <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
-          <CustomSportButton icon={<UploadIcon className="h-5 w-5" />}>Create custom sport</CustomSportButton>
+          <CustomSportButton onClick={openCustomSportModal} icon={<UploadIcon className="h-5 w-5" />}>
+            Create custom sport
+          </CustomSportButton>
           <CustomSportButton icon={<AddIcon className="h-5 w-5" />}>Import custom sport</CustomSportButton>
         </div>
       </Section>
+      <Modal open={customSportModal}>
+        Valami modal{" "}
+        <button type="button" onClick={closeCustomSportModal}>
+          Close
+        </button>
+      </Modal>
     </FormWrapper>
   );
 }

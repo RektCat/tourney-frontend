@@ -3,7 +3,7 @@ import Header from "./components/Header/Header";
 
 function Layout() {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-900">
+    <div className="flex min-h-screen flex-col">
       <div className="mx-auto w-full max-w-[1250px] flex-1">
         <Header />
         <main className="block">
