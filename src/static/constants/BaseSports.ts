@@ -28,7 +28,7 @@ const BASESPORTS: BaseSportsType = {
     name: "Default Snooker",
     rounds: 1,
     scoreStart: 0,
-    scoreGoal: 0,
+    scoreGoal: null,
     fixedRounds: true,
     scoringRule: ScoringRule.Undetermined,
     defaultSport: DefaultSport.Snooker,

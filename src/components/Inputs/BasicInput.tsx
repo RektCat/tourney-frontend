@@ -13,7 +13,7 @@ export const BasicInput = forwardRef<HTMLInputElement, InputProps>((htmlprops, r
     <input
       ref={ref}
       className={
-        "w-full rounded-sm bg-transparent px-2 py-1 text-sm text-black focus:outline-none md:text-base" +
+        "w-full rounded-sm border-2 border-l-0 border-solid border-transparent bg-transparent px-2 py-1 text-sm text-black transition-colors duration-300 focus:border-outline focus:outline-none md:text-base" +
         (className ? className : "")
       }
       {...props}

@@ -28,7 +28,7 @@ export interface Sport {
   name: string;
   rounds: number;
   scoreStart: number;
-  scoreGoal: number;
+  scoreGoal: number | null;
   fixedRounds: boolean;
   scoringRule: ScoringRule;
   scoresPerTurn?: number;

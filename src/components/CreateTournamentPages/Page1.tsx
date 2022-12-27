@@ -49,7 +49,11 @@ const SwitchTab = () => {
             (tab ? "" : "border-b-accent bg-secondary")
           }
         >
-          <button onClick={handleTabChangeBool(true)} type="button" className="h-full w-full py-1 text-sm md:text-base">
+          <button
+            onClick={handleTabChangeBool(true)}
+            type="button"
+            className="h-full w-full py-1 text-sm outline outline-2 outline-transparent focus-visible:outline-outline md:text-base"
+          >
             Round Robin
           </button>
           <input
@@ -71,7 +75,7 @@ const SwitchTab = () => {
           <button
             onClick={handleTabChangeBool(false)}
             type="button"
-            className="h-full w-full py-1 text-sm md:text-base"
+            className="h-full w-full py-1 text-sm outline outline-2 outline-transparent focus-visible:outline-outline md:text-base"
           >
             Single Elimination
           </button>
