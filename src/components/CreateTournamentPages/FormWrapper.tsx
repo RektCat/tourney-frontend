@@ -1,12 +1,11 @@
 import { HTMLProps, PropsWithChildren, useEffect, useRef } from "react";
 
-interface FormWrapperCustomProps {
+interface FormWrapperProps extends HTMLProps<HTMLFormElement> {
   isValid?: {
     current: boolean;
   };
   onValidated?: (e: HTMLFormElement) => void;
 }
-type FormWrapperProps = HTMLProps<HTMLFormElement> & FormWrapperCustomProps;
 
 function FormWrapper({ id, children, isValid, onValidated = () => {} }: PropsWithChildren<FormWrapperProps>) {
   const ref = useRef<HTMLFormElement>(null);
@@ -17,7 +16,6 @@ function FormWrapper({ id, children, isValid, onValidated = () => {} }: PropsWit
     if (ref.current?.checkValidity()) {
       const arr = Array.from(ref.current.elements);
       for (const el of arr) {
-        console.log(el);
         const element = el as HTMLElement;
         element.focus();
         element.blur();

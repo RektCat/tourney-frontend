@@ -9,19 +9,20 @@
 //   add: (obj: Type) => void;
 //   get: () => Type;
 // }
+// interface IProps extends ISomeOther{ }
 
 export enum ScoringRule {
-  Once,
-  Multiple,
-  Simultaneous,
-  Undetermined,
+  Once = "Once",
+  Multiple = "Multiple",
+  Simultaneous = "Simultaneous",
+  Undetermined = "Undetermined",
 }
 
 export enum DefaultSport {
-  Darts,
-  Beerpong,
-  Snooker,
-  Tablefootball,
+  Darts = "Darts",
+  Beerpong = "Beerpong",
+  Snooker = "Snooker",
+  Tablefootball = "Tablefootball",
 }
 
 export interface Sport {

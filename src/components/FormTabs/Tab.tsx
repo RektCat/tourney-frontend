@@ -51,7 +51,7 @@ function Tab({ children, show, tabtitle, first = false }: PropsWithChildren<TabP
       ref={ref}
       id={id.current}
       data-title={tabtitle}
-      className={"col-start-1 col-end-[-1] row-start-1 row-end-[-1]" + (first ? "" : "hidden scale-90 opacity-0")}
+      className={"col-start-1 col-end-[-1] row-start-1 row-end-[-1]" + (first ? "" : " hidden scale-90 opacity-0")}
     >
       {children}
     </div>

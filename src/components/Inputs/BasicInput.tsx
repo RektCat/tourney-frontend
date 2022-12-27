@@ -2,11 +2,8 @@ import anime from "animejs";
 import { forwardRef, HTMLProps, useState } from "react";
 import { useEffect, useRef } from "react";
 import nextId from "../../functions/generateElementId";
-import { z } from "zod";
 
-type InputProps = HTMLProps<HTMLInputElement>;
-
-export const BasicInput = forwardRef<HTMLInputElement, InputProps>((htmlprops, ref) => {
+export const BasicInput = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>((htmlprops, ref) => {
   const { className, ...props } = htmlprops;
 
   return (
@@ -21,12 +18,11 @@ export const BasicInput = forwardRef<HTMLInputElement, InputProps>((htmlprops, r
   );
 });
 
-interface LabelProps {
+interface LabelInputProps extends HTMLProps<HTMLInputElement> {
   labeltext: string;
   // Zod schema
   schema?: any;
 }
-type LabelInputProps = HTMLProps<HTMLInputElement> & LabelProps;
 
 export const BasicInputWithLabel = (htmlprops: LabelInputProps) => {
   const { labeltext, schema, ...props } = htmlprops;

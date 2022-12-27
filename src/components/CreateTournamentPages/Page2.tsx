@@ -11,6 +11,9 @@ import SectionHeader from "./SectionHeader";
 import Section from "./Section";
 import BASESPORTS from "../../static/constants/BaseSports";
 import { PageProps } from "./PageProps";
+import BasicButton from "../Inputs/BasicButton";
+import UploadIcon from "../Icons/UploadIcon";
+import AddIcon from "../Icons/AddIcon";
 
 function Page2({ id, isValid }: PageProps) {
   // const setProps = (e) => {
@@ -31,9 +34,9 @@ function Page2({ id, isValid }: PageProps) {
       </Section>
       <Section>
         <SectionHeader>Custom sports</SectionHeader>
-        <div>
-          <CustomSportButton icon={<span>icon</span>}>Create custom sport</CustomSportButton>
-          <CustomSportButton icon={<span>icon</span>}>Import custom sport</CustomSportButton>
+        <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
+          <CustomSportButton icon={<UploadIcon className="h-5 w-5" />}>Create custom sport</CustomSportButton>
+          <CustomSportButton icon={<AddIcon className="h-5 w-5" />}>Import custom sport</CustomSportButton>
         </div>
       </Section>
     </FormWrapper>
@@ -90,7 +93,7 @@ const BaseSportCard = ({ sport }: BaseSportCardProps) => {
         alt="sport image"
       />
       <ul className="flex flex-grow flex-col pl-2">
-        <li className="rounded-tr-lg border-b border-current bg-black py-1 text-lg font-bold leading-[1] text-accent md:text-xl">
+        <li className="rounded-tr-lg border-b border-current bg-black py-1 text-lg font-bold leading-[1] text-white md:text-xl">
           {sport.name}
         </li>
         <SportInfoRow title="Count of rounds" value={sport.rounds} />
@@ -126,10 +129,10 @@ type CustomSportProps = HTMLProps<HTMLButtonElement> & CustomSportExtraProps;
 
 const CustomSportButton = ({ onClick, children, icon }: PropsWithChildren<CustomSportProps>) => {
   return (
-    <button onClick={onClick} className="p-2">
-      <span>{children}</span>
-      <span>{icon}</span>
-    </button>
+    <BasicButton onClick={onClick} type="button" innerClass="py-2 px-3 flex items-center">
+      <span className="inline-block pr-2">{children}</span>
+      <span className="inline-block border-l border-l-outline/50 pl-2">{icon}</span>
+    </BasicButton>
   );
 };
 

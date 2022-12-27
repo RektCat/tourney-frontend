@@ -1,9 +1,9 @@
-import { PropsWithChildren } from "react";
+import { HTMLProps, PropsWithChildren } from "react";
 
 /**
  * For FormTabs component to render between Tab and TabsHeader
  */
-function Between(props: PropsWithChildren) {
+function Between(props: PropsWithChildren<HTMLProps<HTMLDivElement>>) {
   return <div {...props}>{props.children}</div>;
 }
 
