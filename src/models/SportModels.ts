@@ -34,5 +34,6 @@ export interface Sport {
   scoringRule: ScoringRule;
   scoresPerTurn?: number;
   defaultSport?: DefaultSport;
+  commonInputs?: Array<number>;
   customColor?: string;
 }

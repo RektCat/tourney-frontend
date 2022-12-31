@@ -3,7 +3,7 @@ import { HTMLProps, PropsWithChildren } from "react";
 
 interface BasicButtonProps extends HTMLProps<HTMLButtonElement> {
   innerClass?: string;
-  variant?: "outline" | "accent" | "primary";
+  variant?: "outline" | "accent" | "primary" | "white";
 }
 
 function BasicButton(htmlprops: PropsWithChildren<BasicButtonProps>) {

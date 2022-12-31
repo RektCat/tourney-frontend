@@ -5,7 +5,7 @@ import beerpongurl from "../../static/images/unsplash-beerpongcupsneon_small.jpg
 import dartsurl from "../../static/images/unsplash-darts_small.jpg";
 import snookerurl from "../../static/images/unsplash-snooker_small.jpg";
 import tablefootballurl from "../../static/images/unsplash-tablefootball_small.jpg";
-import { useState, useRef, PropsWithChildren, HTMLProps, ReactNode } from "react";
+import { useState, useRef, PropsWithChildren, HTMLProps } from "react";
 import Tick from "../Icons/Tick";
 import SectionHeader from "./SectionHeader";
 import Section from "./Section";
@@ -15,6 +15,9 @@ import BasicButton from "../Inputs/BasicButton";
 import UploadIcon from "../Icons/UploadIcon";
 import AddIcon from "../Icons/AddIcon";
 import Modal from "../Modal/Modal";
+import CancelButton from "../Inputs/CancelButton";
+import BasicInputWithLabel from "../Inputs/BasicInput";
+import { z } from "zod";
 
 function Page2({ id, isValid }: PageProps) {
   const [customSportModal, setCustomSportModal] = useState<boolean>(false);
@@ -51,10 +54,21 @@ function Page2({ id, isValid }: PageProps) {
         </div>
       </Section>
       <Modal open={customSportModal}>
-        Valami modal{" "}
-        <button type="button" onClick={closeCustomSportModal}>
-          Close
-        </button>
+        <div className="relative p-2">
+          <h3 className="px-6 pb-2 text-center text-lg font-bold leading-tight md:text-xl">Create your custom sport</h3>
+          <span className="absolute right-2 top-2 block">
+            <CancelButton type="button" onClick={closeCustomSportModal} className="block" />
+          </span>
+          <form className="py-2">
+            <BasicInputWithLabel
+              type="text"
+              name="sportname"
+              labeltext="Name of the sport"
+              required
+              schema={z.string().max(32, { message: "Max length is 32!" })}
+            />
+          </form>
+        </div>
       </Modal>
     </FormWrapper>
   );
@@ -110,7 +124,7 @@ const BaseSportCard = ({ sport }: BaseSportCardProps) => {
         alt="sport image"
       />
       <ul className="flex flex-grow flex-col pl-2">
-        <li className="rounded-tr-lg border-b border-current bg-black py-1 text-lg font-bold leading-[1] text-white md:text-xl">
+        <li className="rounded-tr-lg border-b border-current bg-black py-1 text-lg font-bold leading-[1] text-white ">
           {sport.name}
         </li>
         <SportInfoRow title="Count of rounds" value={sport.rounds} />
@@ -118,7 +132,7 @@ const BaseSportCard = ({ sport }: BaseSportCardProps) => {
         <SportInfoRow title="Starting score" value={sport.scoreStart} />
         <SportInfoRow title="Score to reach to win" value={sport.scoreGoal ? sport.scoreGoal : "-"} />
         <SportInfoRow title="Scores in a turn" value={ScoringRule[sport.scoringRule]} />
-        {sport.scoresPerTurn ? <SportInfoRow title="Scores in a turn" value={sport.scoresPerTurn} /> : <></>}
+        {sport.scoresPerTurn ? <SportInfoRow title="Scores amount per turn" value={sport.scoresPerTurn} /> : <></>}
       </ul>
     </button>
   );
@@ -131,23 +145,21 @@ interface SportInfoRowProps {
 
 const SportInfoRow = ({ title, value }: SportInfoRowProps) => {
   return (
-    <li className="flex flex-wrap gap-x-2 border-b border-b-current pr-1 pt-1 pb-1 text-xs last-of-type:border-b-0 last-of-type:pb-0 md:text-base">
+    <li className="flex flex-wrap gap-x-2 border-b border-b-current pr-1 pt-1 pb-1 text-xs last-of-type:border-b-0 last-of-type:pb-0 md:text-sm">
       <span className="inline-block flex-grow text-left font-bold">{title}:</span>
       <span className="inline-block">{value}</span>
     </li>
   );
 };
 
-interface CustomSportExtraProps {
+interface CustomSportProps extends HTMLProps<HTMLButtonElement> {
   icon: JSX.Element;
 }
 
-type CustomSportProps = HTMLProps<HTMLButtonElement> & CustomSportExtraProps;
-
 const CustomSportButton = ({ onClick, children, icon }: PropsWithChildren<CustomSportProps>) => {
   return (
-    <BasicButton onClick={onClick} type="button" innerClass="py-2 px-3 flex items-center">
-      <span className="inline-block pr-2">{children}</span>
+    <BasicButton onClick={onClick} variant="outline" type="button" innerClass="py-2 px-3 flex items-center">
+      <span className="inline-block pr-2 text-lg">{children}</span>
       <span className="inline-block border-l border-l-outline/50 pl-2">{icon}</span>
     </BasicButton>
   );
