@@ -34,7 +34,7 @@ function Page2({ id, isValid }: PageProps) {
   // };
 
   return (
-    <FormWrapper id={id} isValid={isValid}>
+    <FormWrapper id={id} isValid={isValid} onValidated={(e: HTMLFormElement) => console.log(new FormData(e))}>
       <FormHeader>Select sports or create your own</FormHeader>
       <Section>
         <SectionHeader>Base sports</SectionHeader>

@@ -98,12 +98,12 @@ const SwitchTab = () => {
             type="text"
             name="maxPlayers"
             labeltext="Max players (2 - 32)"
-            pattern="[0-9]+"
             inputMode="numeric"
             required
             disabled={!tab}
             schema={z.coerce
               .number({ invalid_type_error: "Input must be a number!", required_error: "Required" })
+              .int({ message: "Must be a whole number! " })
               .gte(2, { message: "Minimum is 2!" })
               .lte(32, { message: "Maximum is 32!" })}
           />
@@ -111,10 +111,10 @@ const SwitchTab = () => {
             type="text"
             name="roundCount"
             labeltext="Round Count (1-12)"
-            pattern="[0-9]+"
             inputMode="numeric"
             schema={z.coerce
               .number({ invalid_type_error: "Input must be a number!", required_error: "Required" })
+              .int({ message: "Must be a whole number! " })
               .gte(1, { message: "Minimum is 1!" })
               .lte(12, { message: "Maximum is 12!" })}
             required
@@ -126,7 +126,6 @@ const SwitchTab = () => {
             type="text"
             name="maxPlayers"
             labeltext="Max players (2 - 32)"
-            pattern="[0-9]+"
             inputMode="numeric"
             onChange={(e) => {
               const target = e.target as HTMLInputElement;
@@ -145,6 +144,7 @@ const SwitchTab = () => {
             disabled={tab}
             schema={z.coerce
               .number({ invalid_type_error: "Input must be a number!", required_error: "Required" })
+              .int({ message: "Must be a whole number! " })
               .gte(2, { message: "Minimum is 2!" })
               .lte(32, { message: "Maximum is 32!" })}
           />
