@@ -2,6 +2,10 @@ import anime from "animejs";
 import { forwardRef, HTMLProps, useState } from "react";
 import { useEffect, useRef } from "react";
 import nextId from "../../functions/generateElementId";
+import CustomEventExtended from "../../models/CustomEvent";
+import CustomEventType from "../../static/constants/CustomEvents";
+
+export const selfValidationEvent = new CustomEvent(CustomEventType.selfValidation);
 
 export const BasicInput = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>((htmlprops, ref) => {
   const { className, ...props } = htmlprops;
@@ -31,9 +35,11 @@ export const BasicInputWithLabel = (htmlprops: LabelInputProps) => {
   const ref = useRef<HTMLInputElement>(null);
   const spanref = useRef<HTMLSpanElement>(null);
 
-  function zValidate(e: FocusEvent) {
-    const input = e.target as HTMLInputElement;
+  function zValidate(e: CustomEventExtended) {
     if (!schema) return;
+    if (e.target.nodeName !== "INPUT") return;
+    const input = e.target as HTMLInputElement;
+    if (input.disabled) return;
     const result = schema.safeParse(input.value);
     if (!result.success) {
       ref.current?.toggleAttribute("data-invalid", true);
@@ -64,12 +70,14 @@ export const BasicInputWithLabel = (htmlprops: LabelInputProps) => {
   useEffect(() => {
     ref.current?.addEventListener("focus", handleFocusAnimation);
     ref.current?.addEventListener("blur", handleBlurAnimation);
-    ref.current?.addEventListener("blur", zValidate);
+    // @ts-ignore: this is a custom event
+    ref.current?.addEventListener(CustomEventType.selfValidation, zValidate);
 
     return () => {
       ref.current?.removeEventListener("focus", handleFocusAnimation);
       ref.current?.removeEventListener("blur", handleBlurAnimation);
-      ref.current?.removeEventListener("blur", zValidate);
+      // @ts-ignore: this is a custom event
+      ref.current?.removeEventListener(CustomEventType.selfValidation, zValidate);
     };
   }, []);
 

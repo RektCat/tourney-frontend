@@ -5,7 +5,7 @@ import beerpongurl from "../../static/images/unsplash-beerpongcupsneon_small.jpg
 import dartsurl from "../../static/images/unsplash-darts_small.jpg";
 import snookerurl from "../../static/images/unsplash-snooker_small.jpg";
 import tablefootballurl from "../../static/images/unsplash-tablefootball_small.jpg";
-import { useState, useRef, PropsWithChildren, HTMLProps, ReactNode } from "react";
+import { useState, useRef, PropsWithChildren, HTMLProps } from "react";
 import Tick from "../Icons/Tick";
 import SectionHeader from "./SectionHeader";
 import Section from "./Section";
@@ -31,7 +31,7 @@ function Page2({ id, isValid }: PageProps) {
   // };
 
   return (
-    <FormWrapper id={id} isValid={isValid}>
+    <FormWrapper id={id} isValid={isValid} onValidated={(e: HTMLFormElement) => console.log(new FormData(e))}>
       <FormHeader>Select sports or create your own</FormHeader>
       <Section>
         <SectionHeader>Base sports</SectionHeader>
