@@ -147,7 +147,7 @@ const SportInfoRow = ({ title, value }: SportInfoRowProps) => {
   return (
     <li className="flex flex-wrap gap-x-2 border-b border-b-current pr-1 pt-1 pb-1 text-xs last-of-type:border-b-0 last-of-type:pb-0 md:text-sm">
       <span className="inline-block flex-grow text-left font-bold">{title}:</span>
-      <span className="inline-block">{value}</span>
+      <span className="inline-block font-semibold">{value}</span>
     </li>
   );
 };

@@ -49,7 +49,6 @@ function Form(props: PropsWithChildren<FormProps>) {
         element.dispatchEvent(selfValidationEvent);
         if (element.getAttribute("data-invalid") !== null) {
           formIsValid = false;
-          return;
         }
       }
       if (formIsValid) {
