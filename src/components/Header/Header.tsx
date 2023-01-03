@@ -11,7 +11,11 @@ import BookOpenIcon from "../Icons/BookOpenIcon";
 function Header() {
   return (
     <nav className="flex justify-between px-2 pt-2">
-      <Link to="/" replace className="transition-color group border-b border-transparent hover:border-primary">
+      <Link
+        to="/"
+        replace
+        className="transition-color tab-focus group border-b border-transparent hover:border-primary"
+      >
         <img
           src="/Tourney-Darts.png"
           className="w-[120px] transition-all md:w-[200px] canhover:group-hover:-translate-y-1"
@@ -83,7 +87,7 @@ const DropDown = ({ children }: { children: ReactNode }) => {
       <li className="text-right">
         <button
           className={
-            "ease-[cubic-bezier(0.11, 0, 0.5, 0)] group rounded-t-[50%] border border-b-0 p-1 pb-0 transition-all duration-500 " +
+            "tab-focus ease-[cubic-bezier(0.11, 0, 0.5, 0)] group rounded-t-[50%] border border-b-0 p-1 pb-0 transition-all duration-500 " +
             (open ? "border-accent bg-secondary" : "border-transparent bg-transparent")
           }
           onClick={() => setOpen((prev) => !prev)}

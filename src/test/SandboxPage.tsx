@@ -8,7 +8,7 @@ function SandboxPage() {
   return (
     <div>
       <h1>Sandbox</h1>
-      <LoadingSpinner />
+      <LoadingSpinner variant="inverted" />
       <Form id="targetmedaddy" receiver={"receivememommy"} validation="synthetic">
         <BasicInputWithLabel
           type="text"

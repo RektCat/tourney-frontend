@@ -1,12 +1,21 @@
 import anime from "animejs";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 interface LoadingSpinnerProps {
   variant?: "normal" | "inverted";
 }
 
 function LoadingSpinner({ variant = "normal" }: LoadingSpinnerProps) {
-  const colorScheme = variant === "inverted" ? " bg-outline border-white" : " bg-white border-outline";
+  const colorScheme = useMemo(() => {
+    switch (variant) {
+      case "inverted":
+        return " bg-outline border-white";
+      case "normal":
+        return " bg-white border-outline";
+      default:
+        return " bg-white border-outline";
+    }
+  }, [variant]);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
