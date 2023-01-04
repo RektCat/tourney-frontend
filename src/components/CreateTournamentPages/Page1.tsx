@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { usePage1Store } from "../../stores/CreateTournamentStore";
 import ArrowDown from "../Icons/ArrowDown";
-import { BasicInputWithLabel } from "../Inputs/BasicInput";
+import { InputWithLabel } from "../Inputs/TextInputs/InputWithLabel";
 import FormHeader from "./FormHeader";
 import FormWrapper from "./FormWrapper";
 import { z } from "zod";
@@ -16,7 +16,7 @@ function Page1({ id, isValid }: PageProps) {
       <FormHeader>Tournament Details</FormHeader>
       <div className="flex flex-col items-center justify-center gap-4 md:mx-[10%]">
         <div className="w-full px-1 md:px-0">
-          <BasicInputWithLabel
+          <InputWithLabel
             type="text"
             name="tournamentName"
             labeltext="Tournament name"
@@ -94,7 +94,7 @@ const SwitchTab = () => {
         <div
           className={"col-start-1 col-end-[-1] row-start-1 row-end-[-1] flex flex-col gap-4 " + (tab ? "" : "hidden")}
         >
-          <BasicInputWithLabel
+          <InputWithLabel
             type="text"
             name="maxPlayers"
             labeltext="Max players (2 - 32)"
@@ -107,7 +107,7 @@ const SwitchTab = () => {
               .gte(2, { message: "Minimum is 2!" })
               .lte(32, { message: "Maximum is 32!" })}
           />
-          <BasicInputWithLabel
+          <InputWithLabel
             type="text"
             name="roundCount"
             labeltext="Round Count (1-12)"
@@ -122,7 +122,7 @@ const SwitchTab = () => {
           />
         </div>
         <div className={"col-start-1 col-end-[-1] row-start-1 row-end-[-1] " + (tab ? "hidden" : "")}>
-          <BasicInputWithLabel
+          <InputWithLabel
             type="text"
             name="maxPlayers"
             labeltext="Max players (2 - 32)"
@@ -154,7 +154,7 @@ const SwitchTab = () => {
               <ArrowDown className="h-4 w-4" />
             </span>
           </p>
-          <BasicInputWithLabel
+          <InputWithLabel
             type="text"
             name="roundCount"
             labeltext="Number of rounds: "

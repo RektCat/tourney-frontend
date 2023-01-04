@@ -11,12 +11,12 @@ import SectionHeader from "./SectionHeader";
 import Section from "./Section";
 import BASESPORTS from "../../static/constants/BaseSports";
 import { PageProps } from "./PageProps";
-import BasicButton from "../Inputs/BasicButton";
+import BasicButton from "../Inputs/BasicButton/BasicButton";
 import UploadIcon from "../Icons/UploadIcon";
 import AddIcon from "../Icons/AddIcon";
 import Modal from "../Modal/Modal";
-import CancelButton from "../Inputs/CancelButton";
-import BasicInputWithLabel from "../Inputs/BasicInput";
+import CancelButton from "../Inputs/CancelButton/CancelButton";
+import InputWithLabel from "../Inputs/TextInputs/InputWithLabel";
 import { z } from "zod";
 
 function Page2({ id, isValid }: PageProps) {
@@ -60,7 +60,7 @@ function Page2({ id, isValid }: PageProps) {
             <CancelButton type="button" onClick={closeCustomSportModal} className="block" />
           </span>
           <form className="py-2">
-            <BasicInputWithLabel
+            <InputWithLabel
               type="text"
               name="sportname"
               labeltext="Name of the sport"

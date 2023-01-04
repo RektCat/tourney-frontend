@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import BasicButton from "../components/Inputs/BasicButton";
+import BasicButton from "../components/Inputs/BasicButton/BasicButton";
 
 function NoPage() {
   return (

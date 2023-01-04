@@ -1,5 +1,5 @@
 import { HTMLProps, PropsWithChildren, useEffect, useRef } from "react";
-import { selfValidationEvent } from "../Inputs/BasicInput";
+import { selfValidationEvent } from "../Inputs/TextInputs/InputWithLabel";
 
 interface FormWrapperProps extends HTMLProps<HTMLFormElement> {
   isValid?: {

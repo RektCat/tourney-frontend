@@ -1,26 +1,10 @@
 import anime from "animejs";
-import { forwardRef, HTMLProps, useState } from "react";
-import { useEffect, useRef } from "react";
-import nextId from "../../functions/generateElementId";
-import CustomEventExtended from "../../models/CustomEvent";
-import CustomEventType from "../../static/constants/CustomEvents";
+import { HTMLProps, useEffect, useRef, useState } from "react";
+import nextId from "../../../functions/generateElementId";
+import CustomEventExtended from "../../../models/CustomEvent";
+import CustomEventType from "../../../static/constants/CustomEvents";
 
 export const selfValidationEvent = new CustomEvent(CustomEventType.selfValidation);
-
-export const BasicInput = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>((htmlprops, ref) => {
-  const { className, ...props } = htmlprops;
-
-  return (
-    <input
-      ref={ref}
-      className={
-        "w-full rounded-sm border-2 border-l-0 border-solid border-transparent bg-transparent px-2 py-1 text-sm text-black transition-colors duration-300 focus:border-outline focus:outline-none md:text-base" +
-        (className ? className : "")
-      }
-      {...props}
-    />
-  );
-});
 
 interface LabelInputProps extends HTMLProps<HTMLInputElement> {
   labeltext: string;
@@ -28,7 +12,7 @@ interface LabelInputProps extends HTMLProps<HTMLInputElement> {
   schema?: any;
 }
 
-export const BasicInputWithLabel = (htmlprops: LabelInputProps) => {
+export const InputWithLabel = (htmlprops: LabelInputProps) => {
   const { labeltext, schema, ...props } = htmlprops;
   const [errorMessages, setErrorMessages] = useState<Array<string>>([]);
   const id = useRef<string>(nextId());
@@ -113,4 +97,4 @@ export const BasicInputWithLabel = (htmlprops: LabelInputProps) => {
   );
 };
 
-export default BasicInputWithLabel;
+export default InputWithLabel;

@@ -1,7 +1,7 @@
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import { z } from "zod";
 import Form from "../components/Forms/Form";
-import BasicInputWithLabel from "../components/Inputs/BasicInput";
+import BasicInputWithLabel from "../components/Inputs/TextInputs/InputWithLabel";
 import { ValidateButton } from "./FormEventTester";
 
 function SandboxPage() {

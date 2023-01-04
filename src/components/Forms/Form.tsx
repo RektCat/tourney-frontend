@@ -1,6 +1,6 @@
 import { HTMLProps, PropsWithChildren, useEffect, useRef } from "react";
 import CustomEventType from "../../static/constants/CustomEvents";
-import { selfValidationEvent } from "../Inputs/BasicInput";
+import { selfValidationEvent } from "../Inputs/TextInputs/InputWithLabel";
 
 interface FormProps extends HTMLProps<HTMLFormElement> {
   receiver: string | HTMLElement;
