@@ -14,7 +14,7 @@ function Header() {
       <Link
         to="/"
         replace
-        className="transition-color tab-focus group border-b border-transparent hover:border-primary"
+        className="transition-color tab-focus-outline group border-b border-transparent hover:border-primary"
       >
         <img
           src="/Tourney-Darts.png"
@@ -87,7 +87,7 @@ const DropDown = ({ children }: { children: ReactNode }) => {
       <li className="text-right">
         <button
           className={
-            "tab-focus ease-[cubic-bezier(0.11, 0, 0.5, 0)] group rounded-t-[50%] border border-b-0 p-1 pb-0 transition-all duration-500 " +
+            "tab-focus-outline ease-[cubic-bezier(0.11, 0, 0.5, 0)] group rounded-t-[50%] border border-b-0 p-1 pb-0 transition-all duration-500 " +
             (open ? "border-accent bg-secondary" : "border-transparent bg-transparent")
           }
           onClick={() => setOpen((prev) => !prev)}

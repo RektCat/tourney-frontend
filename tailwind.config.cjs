@@ -24,6 +24,9 @@ module.exports = {
       screens: {
         canhover: { raw: "(hover: hover)" },
       },
+      transitionProperty: {
+        outline: "outline-width, outline-color, outline-offset",
+      },
     },
   },
   plugins: [],

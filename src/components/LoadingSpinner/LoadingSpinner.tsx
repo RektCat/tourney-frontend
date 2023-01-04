@@ -127,14 +127,11 @@ function LoadingSpinner({ variant = "normal" }: LoadingSpinnerProps) {
     <div className="grid place-items-center gap-4 text-2xl">
       <div className="flex justify-center gap-4">
         <span
-          className={
-            "loader-block loader-top-left inline-block h-[1em] w-[1em] border-l-4 border-t-4 border-outline bg-white" +
-            colorScheme
-          }
+          className={"loader-block loader-top-left inline-block h-[1em] w-[1em] border-l-4 border-t-4 " + colorScheme}
         ></span>
         <span
           className={
-            "loader-block loader-top-right inline-block h-[1em] w-[1em] rounded-tr-lg border-r-4 border-t-4 border-outline bg-white" +
+            "loader-block loader-top-right inline-block h-[1em] w-[1em] rounded-tr-lg border-r-4 border-t-4 " +
             colorScheme
           }
         ></span>
@@ -142,15 +139,12 @@ function LoadingSpinner({ variant = "normal" }: LoadingSpinnerProps) {
       <div className="flex justify-center gap-4">
         <span
           className={
-            "loader-block loader-bot-left loader-left inline-block h-[1em] w-[1em] rounded-bl-lg border-l-4 border-b-4 border-outline bg-white" +
+            "loader-block loader-bot-left loader-left inline-block h-[1em] w-[1em] rounded-bl-lg border-l-4 border-b-4 " +
             colorScheme
           }
         ></span>
         <span
-          className={
-            "loader-block loader-bot-right inline-block h-[1em] w-[1em] border-r-4 border-b-4 border-outline bg-white" +
-            colorScheme
-          }
+          className={"loader-block loader-bot-right inline-block h-[1em] w-[1em] border-r-4 border-b-4 " + colorScheme}
         ></span>
       </div>
     </div>

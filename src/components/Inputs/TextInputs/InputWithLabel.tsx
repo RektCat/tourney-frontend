@@ -3,6 +3,7 @@ import { HTMLProps, useEffect, useRef, useState } from "react";
 import nextId from "../../../functions/generateElementId";
 import CustomEventExtended from "../../../models/CustomEvent";
 import CustomEventType from "../../../static/constants/CustomEvents";
+import BasicInput from "./BasicInput";
 
 export const selfValidationEvent = new CustomEvent(CustomEventType.selfValidation);
 

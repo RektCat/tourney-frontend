@@ -6,7 +6,10 @@ function CancelButton(htmlprops: HTMLProps<HTMLButtonElement>) {
   return (
     // @ts-ignore
     <button
-      className={"group relative isolate rounded-full text-2xl text-outline " + (className ? className : "")}
+      className={
+        "group relative isolate rounded-full text-2xl text-outline outline outline-2 outline-offset-2 outline-transparent transition-outline focus-within:outline-outline active:outline-outline " +
+        (className ? className : "")
+      }
       {...props}
     >
       <svg
@@ -25,7 +28,7 @@ function CancelButton(htmlprops: HTMLProps<HTMLButtonElement>) {
           stroke="currentColor"
         />
       </svg>
-      {/* <span className="absolute inset-[0.125em] -z-50 origin-bottom scale-0 rounded-full bg-white/40 transition-transform duration-1000 canhover:group-hover:scale-100"></span> */}
+      {/* <span className="absolute inset-[0.125em] -z-50 origin-center scale-0 rounded-full bg-white/40 transition-transform duration-100 group-active:scale-100"></span> */}
     </button>
   );
 }

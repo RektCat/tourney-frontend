@@ -13,8 +13,12 @@
 }
 
 @layer utilities {
-  .tab-focus {
+  .tab-focus-outline {
     @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-outline;
+  }
+
+  .tab-focus-bg {
+    @apply focus-visible:bg-white/40;
   }
 }
 
