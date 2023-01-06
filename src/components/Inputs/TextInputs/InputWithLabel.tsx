@@ -48,7 +48,8 @@ export const InputWithLabel = (htmlprops: LabelInputProps) => {
     anime({
       targets: spanref.current,
       translateX: [0, "-100%"],
-      duration: 200,
+      duration: 300,
+      easing: "easeInQuad",
     });
   };
 
@@ -71,9 +72,9 @@ export const InputWithLabel = (htmlprops: LabelInputProps) => {
       <label htmlFor={id.current} className="ml-4 mb-1 block text-sm md:text-base">
         {labeltext}
       </label>
-      <div className="group relative isolate z-10 w-full overflow-hidden rounded-sm bg-white pl-2">
+      <div className="group relative isolate z-10 w-full overflow-hidden rounded-sm bg-black/90 pl-2">
         <span
-          className="absolute inset-0 -z-50 inline-block bg-transparent group-hover:bg-outline/20"
+          className="absolute inset-0 -z-50 inline-block bg-transparent group-hover:bg-outline/10"
           aria-hidden="true"
         ></span>
         <span

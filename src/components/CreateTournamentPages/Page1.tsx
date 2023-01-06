@@ -20,8 +20,13 @@ function Page1({ id, isValid }: PageProps) {
             type="text"
             name="tournamentName"
             labeltext="Tournament name"
+            placeholder="Name..."
             required
-            schema={z.string().min(3, { message: "Minimum length is 3!" }).max(64, { message: "Max length is 64!" })}
+            schema={z
+              .string()
+              .min(3, { message: "Minimum length is 3!" })
+              .max(64, { message: "Max length is 64!" })
+              .regex(new RegExp("^[a-zA-Z0-9]+$"), { message: "Letters and numbers only!" })}
           />
         </div>
         <SwitchTab />
@@ -41,7 +46,7 @@ const SwitchTab = () => {
   };
 
   return (
-    <div className="w-full border-y border-accent bg-gray-900 pb-4 md:border-x">
+    <div className="w-full border-y border-accent bg-black/25 pb-4 md:border-x">
       <div className="mb-4 flex w-full">
         <div
           className={
@@ -99,6 +104,7 @@ const SwitchTab = () => {
             name="maxPlayers"
             labeltext="Max players (2 - 32)"
             inputMode="numeric"
+            placeholder="Number..."
             required
             disabled={!tab}
             schema={z.coerce
@@ -112,6 +118,7 @@ const SwitchTab = () => {
             name="roundCount"
             labeltext="Round Count (1-12)"
             inputMode="numeric"
+            placeholder="Number..."
             schema={z.coerce
               .number({ invalid_type_error: "Input must be a number!", required_error: "Required" })
               .int({ message: "Must be a whole number! " })
@@ -126,6 +133,7 @@ const SwitchTab = () => {
             type="text"
             name="maxPlayers"
             labeltext="Max players (2 - 32)"
+            placeholder="Number..."
             inputMode="numeric"
             onChange={(e) => {
               const target = e.target as HTMLInputElement;

@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { default as Component } from "./BasicButton";
 
 export default {
-  title: "Components/BasicButton",
+  title: "Inputs/BasicButton",
   component: Component,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 } as ComponentMeta<typeof Component>;

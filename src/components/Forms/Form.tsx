@@ -3,11 +3,14 @@ import CustomEventType from "../../static/constants/CustomEvents";
 import { selfValidationEvent } from "../Inputs/TextInputs/InputWithLabel";
 
 interface FormProps extends HTMLProps<HTMLFormElement> {
-  receiver: string | HTMLElement;
-  validation: "original" | "report/synthetic" | "synthetic" | undefined;
+  receiver?: string | HTMLElement;
+  validation?: "original" | "report/synthetic" | "synthetic" | undefined;
 }
 
-const handleDispatchEvent = (receiver: string | HTMLElement, data: { valid: boolean; formData?: FormData }) => {
+const handleDispatchEvent = (
+  receiver: string | HTMLElement | undefined,
+  data: { valid: boolean; formData?: FormData }
+) => {
   if (!receiver) {
     console.error("No receiver given!");
     return;

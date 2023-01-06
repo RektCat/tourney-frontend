@@ -18,6 +18,8 @@ import Modal from "../Modal/Modal";
 import CancelButton from "../Inputs/CancelButton/CancelButton";
 import InputWithLabel from "../Inputs/TextInputs/InputWithLabel";
 import { z } from "zod";
+import Form from "../Forms/Form";
+import RadioButton from "../Inputs/RadioButton/RadioButton";
 
 function Page2({ id, isValid }: PageProps) {
   const [customSportModal, setCustomSportModal] = useState<boolean>(false);
@@ -59,15 +61,38 @@ function Page2({ id, isValid }: PageProps) {
           <span className="absolute right-2 top-2 block">
             <CancelButton type="button" onClick={closeCustomSportModal} className="block" />
           </span>
-          <form className="py-2">
+          <Form className="flex flex-col gap-2 py-2">
             <InputWithLabel
               type="text"
-              name="sportname"
+              name="name"
               labeltext="Name of the sport"
               required
               schema={z.string().max(32, { message: "Max length is 32!" })}
             />
-          </form>
+            <InputWithLabel
+              type="text"
+              name="rounds"
+              inputMode="numeric"
+              labeltext="Number of rounds"
+              required
+              schema={z.coerce
+                .number({ invalid_type_error: "Input must be a number!", required_error: "Required" })
+                .min(1, { message: "Minimum is 1" })
+                .max(32, { message: "Max length is 32!" })}
+            />
+            <fieldset>
+              <RadioButton label="fixedRoundsInput" id="fixedRoundsInput" name="fixedRounds" value="true" />
+              <RadioButton label="bestOfRoundsInput" id="bestOfRoundsInput" name="fixedRounds" value="false" />
+              {/* <div>
+                <label htmlFor="fixedRoundsInput"></label>
+                <input id="fixedRoundsInput" type="radio" name="fixedRounds" value="true" required />
+              </div> */}
+              {/* <div>
+                <label htmlFor=" bestOfRoundsInput"></label>
+                <input id="bestOfRoundsInput" type="radio" name="fixedRounds" value="false" required />
+              </div> */}
+            </fieldset>
+          </Form>
         </div>
       </Modal>
     </FormWrapper>
