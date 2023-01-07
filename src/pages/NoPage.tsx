@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import BasicButton from "../components/Inputs/BasicButton/BasicButton";
+import Button from "../components/Inputs/Button/Button";
 
 function NoPage() {
   return (
@@ -8,9 +8,9 @@ function NoPage() {
         <h1 className="skew-x-6 text-[clamp(3rem,_3rem_+_2vw,_6rem)] leading-tight text-accent">404</h1>
         <p className="text-2xl">No page found</p>
         <Link to="/" replace>
-          <BasicButton variant="accent" className="text-xl">
+          <Button variant="accent" className="text-xl">
             Back to Home
-          </BasicButton>
+          </Button>
         </Link>
       </section>
     </div>

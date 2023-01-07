@@ -68,13 +68,15 @@ export const InputWithLabel = (htmlprops: LabelInputProps) => {
   }, []);
 
   return (
-    <div className="isolate w-full">
+    <div className={"isolate w-full" + (props.disabled ? " opacity-75" : "")}>
       <label htmlFor={id.current} className="ml-4 mb-1 block text-sm md:text-base">
         {labeltext}
       </label>
       <div className="group relative isolate z-10 w-full overflow-hidden rounded-sm bg-black/90 pl-2">
         <span
-          className="absolute inset-0 -z-50 inline-block bg-transparent group-hover:bg-outline/10"
+          className={
+            "absolute inset-0 -z-50 inline-block bg-transparent " + (props.disabled ? "" : " group-hover:bg-outline/10")
+          }
           aria-hidden="true"
         ></span>
         <span

@@ -4,7 +4,7 @@ import CreateTournament from "./pages/CreateTournament";
 import Home from "./pages/Home";
 import JoinGame from "./pages/JoinGame";
 import NoPage from "./pages/NoPage";
-import ENDPOINTS from "./static/constants/Endpoints";
+import ENDPOINTS from "./static/constants/ENDPOINTS";
 import SandboxPage from "./test/SandboxPage";
 
 function Routing() {

@@ -3,7 +3,7 @@ import { useEffect, useRef, PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
 import TournamentIcon from "../components/Icons/TournamentIcon";
 import nextId from "../functions/generateElementId";
-import ENDPOINTS from "../static/constants/Endpoints";
+import ENDPOINTS from "../static/constants/ENDPOINTS";
 
 function Home() {
   return (

@@ -11,7 +11,7 @@ import SectionHeader from "./SectionHeader";
 import Section from "./Section";
 import BASESPORTS from "../../static/constants/BaseSports";
 import { PageProps } from "./PageProps";
-import BasicButton from "../Inputs/BasicButton/BasicButton";
+import Button from "../Inputs/Button/Button";
 import UploadIcon from "../Icons/UploadIcon";
 import AddIcon from "../Icons/AddIcon";
 import Modal from "../Modal/Modal";
@@ -20,12 +20,18 @@ import InputWithLabel from "../Inputs/TextInputs/InputWithLabel";
 import { z } from "zod";
 import Form from "../Forms/Form";
 import RadioButton from "../Inputs/RadioButton/RadioButton";
+import Checkbox from "../Inputs/Checkbox/Checkbox";
+import BasicButton from "../Inputs/BasicButton/BasicButton";
 
 function Page2({ id, isValid }: PageProps) {
   const [customSportModal, setCustomSportModal] = useState<boolean>(false);
+  const [endingScore, setEndingScore] = useState<boolean>(false);
+  const [commonInputs, setCommonInputs] = useState<Array<number>>([]);
+  const [customSports, setCustomSports] = useState<Array<Sport>>([]);
 
   const closeCustomSportModal = () => {
     setCustomSportModal(false);
+    setEndingScore(false);
   };
   const openCustomSportModal = () => {
     setCustomSportModal(true);
@@ -49,10 +55,10 @@ function Page2({ id, isValid }: PageProps) {
       <Section>
         <SectionHeader>Custom sports</SectionHeader>
         <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
-          <CustomSportButton onClick={openCustomSportModal} icon={<UploadIcon className="h-5 w-5" />}>
+          <CustomSportButton onClick={openCustomSportModal} icon={<AddIcon className="h-5 w-5" />}>
             Create custom sport
           </CustomSportButton>
-          <CustomSportButton icon={<AddIcon className="h-5 w-5" />}>Import custom sport</CustomSportButton>
+          <CustomSportButton icon={<UploadIcon className="h-5 w-5" />}>Import custom sport</CustomSportButton>
         </div>
       </Section>
       <Modal open={customSportModal}>
@@ -80,18 +86,72 @@ function Page2({ id, isValid }: PageProps) {
                 .min(1, { message: "Minimum is 1" })
                 .max(32, { message: "Max length is 32!" })}
             />
-            <fieldset>
-              <RadioButton label="fixedRoundsInput" id="fixedRoundsInput" name="fixedRounds" value="true" />
-              <RadioButton label="bestOfRoundsInput" id="bestOfRoundsInput" name="fixedRounds" value="false" />
-              {/* <div>
-                <label htmlFor="fixedRoundsInput"></label>
-                <input id="fixedRoundsInput" type="radio" name="fixedRounds" value="true" required />
-              </div> */}
-              {/* <div>
-                <label htmlFor=" bestOfRoundsInput"></label>
-                <input id="bestOfRoundsInput" type="radio" name="fixedRounds" value="false" required />
-              </div> */}
+            <fieldset className="flex flex-row gap-2">
+              <RadioButton
+                label="Fixed Rounds"
+                fullWidth
+                id="fixedRoundsInput"
+                name="fixedRounds"
+                value="true"
+                required
+              />
+              <RadioButton
+                label="Best of Rounds"
+                fullWidth
+                id="bestOfRoundsInput"
+                name="fixedRounds"
+                value="false"
+                required
+              />
             </fieldset>
+            <InputWithLabel
+              type="text"
+              name="scoreStart"
+              inputMode="numeric"
+              labeltext="Starting score"
+              required
+              schema={z.coerce.number({ invalid_type_error: "Input must be a number!", required_error: "Required" })}
+            />
+            <div className="flex flex-col gap-2 md:flex-row">
+              <Checkbox
+                className="md:basis-1/2 md:self-end"
+                label="Has ending score?"
+                onChange={(e: any) => {
+                  setEndingScore(e.target.checked);
+                }}
+              />
+              <InputWithLabel
+                type="text"
+                name="scoreGoal"
+                inputMode="numeric"
+                labeltext="Ending score"
+                required
+                disabled={!endingScore}
+                schema={z.coerce.number({ invalid_type_error: "Input must be a number!", required_error: "Required" })}
+              />
+            </div>
+            <section className="rounded-sm outline outline-2 outline-offset-4 outline-black/80">
+              <p className="pb-2 text-center text-xs md:text-sm">
+                You can generate scores, and buttons will be generated for each one for easier access!
+              </p>
+              <div className="flex flex-row gap-2">
+                {/* TODO: inputs number -> check if number -> into array -> show components */}
+                <InputWithLabel
+                  type="text"
+                  name="commonInput"
+                  inputMode="numeric"
+                  labeltext="Common inputs"
+                  schema={z.coerce.number({
+                    invalid_type_error: "Input must be a number!",
+                    required_error: "Required",
+                  })}
+                />
+                <BasicButton type="button" className="self-end">
+                  Add
+                </BasicButton>
+              </div>
+              {commonInputs.length !== 0 && commonInputs.map((num, i) => <span key={i}>{num}</span>)}
+            </section>
           </Form>
         </div>
       </Modal>
@@ -183,10 +243,10 @@ interface CustomSportProps extends HTMLProps<HTMLButtonElement> {
 
 const CustomSportButton = ({ onClick, children, icon }: PropsWithChildren<CustomSportProps>) => {
   return (
-    <BasicButton onClick={onClick} variant="outline" type="button" innerClass="py-2 px-3 flex items-center">
+    <Button onClick={onClick} variant="accent" type="button" innerClass="py-2 px-3 bg-black/80 flex items-center">
       <span className="inline-block pr-2 text-lg">{children}</span>
-      <span className="inline-block border-l border-l-outline/50 pl-2">{icon}</span>
-    </BasicButton>
+      <span className="inline-block border-l border-l-accent/50 pl-2">{icon}</span>
+    </Button>
   );
 };
 

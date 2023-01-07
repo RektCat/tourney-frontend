@@ -3,22 +3,31 @@ import nextId from "../../../functions/generateElementId";
 
 interface RadioButtonProps extends HTMLProps<HTMLInputElement> {
   label: string;
+  fullWidth?: boolean;
 }
 
 function RadioButton(props: RadioButtonProps) {
-  const id = useRef(props.id ?? nextId());
+  const { id, className, ...others } = props;
+  const idRef = useRef(id ?? nextId());
 
   return (
-    <div>
-      <label htmlFor={id.current} className="sr-only">
+    <div className={"text-sm md:text-base" + (props.fullWidth ? " w-full flex-1" : "")}>
+      <label htmlFor={idRef.current} className="sr-only">
         {props.label}
       </label>
-      <input
-        id={id.current}
-        type="radio"
-        className="h-[1em] w-[1em] appearance-none border-2 border-solid border-outline bg-white checked:bg-accent"
-        {...props}
-      />
+      <div
+        className={"group relative isolate inline-block py-2 px-2 text-center " + (props.fullWidth ? " w-full" : "")}
+      >
+        <input
+          id={idRef.current}
+          type="radio"
+          className="peer pointer-events-auto absolute inset-0 cursor-pointer appearance-none border border-solid border-accent bg-black/80 shadow-accent outline outline-1 outline-offset-2 outline-transparent checked:scale-95 checked:border-accent checked:shadow-[inset_0_0_6px_2px_var(--tw-shadow-color)] focus-visible:outline-outline"
+          {...others}
+          tabIndex={0}
+        />
+        <span className="pointer-events-none relative z-10">{props.label}</span>
+        <span className="absolute inset-0 -z-10 bg-transparent transition-colors group-hover:bg-outline peer-checked:scale-95"></span>
+      </div>
     </div>
   );
 }
