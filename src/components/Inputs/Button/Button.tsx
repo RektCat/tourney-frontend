@@ -21,7 +21,7 @@ function Button(htmlprops: PropsWithChildren<ButtonProps>) {
         ></span>
       </span>
       <span
-        className={`absolute bottom-0 left-[12px] -z-50 inline-block h-4 w-[calc(100%_-_24px)] scale-x-50 border-b-2 border-solid border-${variant} bg-transparent transition-transform canhover:group-hover:scale-100`}
+        className={`absolute bottom-0 left-[12px] inline-block h-4 w-[calc(100%_-_24px)] scale-x-50 border-b-2 border-solid border-${variant} bg-transparent transition-transform canhover:group-hover:scale-100`}
       ></span>
     </button>
   );

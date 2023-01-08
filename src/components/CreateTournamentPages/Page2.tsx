@@ -67,7 +67,7 @@ function Page2({ id, isValid }: PageProps) {
           <span className="absolute right-2 top-2 block">
             <CancelButton type="button" onClick={closeCustomSportModal} className="block" />
           </span>
-          <Form className="flex flex-col gap-2 py-2">
+          <Form className="flex flex-col gap-4 py-2">
             <InputWithLabel
               type="text"
               name="name"
@@ -130,17 +130,18 @@ function Page2({ id, isValid }: PageProps) {
                 schema={z.coerce.number({ invalid_type_error: "Input must be a number!", required_error: "Required" })}
               />
             </div>
-            <section className="rounded-sm outline outline-2 outline-offset-4 outline-black/80">
-              <p className="pb-2 text-center text-xs md:text-sm">
+            <section className="rounded-sm bg-white/10 outline outline-2 outline-black/80">
+              <p className="mb-2 border-b-2 border-black/80 py-2 text-center text-xs md:text-sm">
                 You can generate scores, and buttons will be generated for each one for easier access!
               </p>
               <div className="flex flex-row gap-2">
+                {/* TODO: put these into separate components */}
                 {/* TODO: inputs number -> check if number -> into array -> show components */}
                 <InputWithLabel
                   type="text"
                   name="commonInput"
                   inputMode="numeric"
-                  labeltext="Common inputs"
+                  labeltext="One of the common inputs"
                   schema={z.coerce.number({
                     invalid_type_error: "Input must be a number!",
                     required_error: "Required",

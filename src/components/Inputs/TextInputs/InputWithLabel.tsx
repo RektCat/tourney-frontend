@@ -75,7 +75,8 @@ export const InputWithLabel = (htmlprops: LabelInputProps) => {
       <div className="group relative isolate z-10 w-full overflow-hidden rounded-sm bg-black/90 pl-2">
         <span
           className={
-            "absolute inset-0 -z-50 inline-block bg-transparent " + (props.disabled ? "" : " group-hover:bg-outline/10")
+            "absolute inset-0 -z-50 inline-block scale-x-50 border-x-2 border-transparent bg-transparent transition-transform " +
+            (props.disabled ? "" : " group-hover:scale-x-100 group-hover:border-outline group-hover:bg-outline/10")
           }
           aria-hidden="true"
         ></span>
@@ -87,6 +88,9 @@ export const InputWithLabel = (htmlprops: LabelInputProps) => {
         {/* TODO: have no idea why this is not correct
         @ts-ignore */}
         <BasicInput ref={ref} id={id.current} {...props} />
+        {props.disabled && (
+          <span className="absolute left-0 top-0 z-50 h-[2px] w-[110%] origin-top-left rotate-[4deg] bg-outline"></span>
+        )}
       </div>
       {errorMessages.length !== 0 && (
         <ul className="-z-10 -translate-y-1 rounded-b-md border border-t-0 border-warning pb-1 pt-2 pl-1 text-xs text-warning md:text-sm">

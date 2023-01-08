@@ -1,5 +1,6 @@
 import { HTMLProps, useRef } from "react";
 import nextId from "../../../functions/generateElementId";
+import ButtonInsetHover from "../../StyleHelpers/ButtonInsetHover";
 
 interface CheckboxProps extends HTMLProps<HTMLInputElement> {
   label: string;
@@ -12,17 +13,18 @@ function Checkbox(props: CheckboxProps) {
   return (
     <div
       className={
-        "inline-flex cursor-pointer items-stretch border border-solid border-accent text-sm hover:bg-outline md:text-base " +
+        "group inline-flex cursor-pointer items-stretch border border-solid border-accent text-sm md:text-base " +
         (className ?? "")
       }
     >
-      <span className="inline-grid w-[1.5em] cursor-pointer place-items-center bg-black/80">
+      <span className="relative inline-grid w-[1.5em] cursor-pointer place-items-center overflow-hidden">
         <input
           type="checkbox"
           id={idRef.current}
-          className="tab-focus-outline aspect-square w-[1em] appearance-none rounded-full transition-colors checked:bg-accent"
+          className="tab-focus-outline aspect-square w-[1em] cursor-pointer appearance-none rounded-full transition-colors checked:bg-accent"
           {...others}
         />
+        <ButtonInsetHover inset="2px" />
       </span>
       <label
         htmlFor={idRef.current}
